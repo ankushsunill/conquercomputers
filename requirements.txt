@@ -1,0 +1,5 @@
+﻿Django==5.2.1
+gunicorn==23.0.0
+uvicorn==0.34.0
+whitenoise==6.9.0
+tzdata==2025.2

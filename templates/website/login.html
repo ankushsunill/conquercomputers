@@ -1,0 +1,259 @@
+﻿<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script>
+        (function () {
+            try {
+                var savedTheme = localStorage.getItem('conquer-theme');
+                if (savedTheme === 'light' || savedTheme === 'dark') {
+                    document.documentElement.setAttribute('data-theme', savedTheme);
+                }
+            } catch (error) {
+                // Keep the default theme when browser storage is unavailable.
+            }
+        })();
+    </script>
+
+    <title>Secure Portal Login | Conquer Computers LLC</title>
+    <meta name="description" content="Secure approved portal login for Conquer Computers LLC staff, users, and admins.">
+    <link rel="canonical" href="https://www.conquercomputers.com/login.html">
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="icon" href="images/logo.png" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="static/css/style.css?v=23">
+    <link rel="stylesheet" href="static/css/portal.css?v=24">
+    <link rel="manifest" href="/manifest.webmanifest">
+    <meta name="theme-color" content="#07090c">
+    <link rel="apple-touch-icon" href="/images/pwa/icon-192.png">
+</head>
+<style>
+    .portal-install-app-btn {
+        width: 100%;
+        max-width: 330px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        background: #ffffff00;
+        color: #ffffff;
+        padding: 14px 18px;
+        margin: 18px 0 14px;
+        cursor: pointer;
+        font-family: inherit;
+        transition:
+            transform 0.25s ease,
+            box-shadow 0.25s ease,
+            opacity 0.25s ease;
+    }
+
+    .portal-install-app-btn:hover {
+        transform: translateY(-2px);
+    }
+
+    .portal-install-app-btn:active {
+        transform: translateY(0);
+    }
+
+    .portal-install-app-btn[hidden] {
+        display: none !important;
+    }
+
+    .install-app-icon {
+        width: 42px;
+        height: 42px;
+        display: grid;
+        place-items: center;
+        font-size: 1.25rem;
+        font-weight: 700;
+        flex-shrink: 0;
+    }
+
+    .install-app-text {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        text-align: left;
+        line-height: 1.25;
+    }
+
+    .install-app-text strong {
+        font-size: 0.96rem;
+        font-weight: 700;
+        letter-spacing: 0.01em;
+    }
+
+    .install-app-text small {
+        font-size: 0.72rem;
+        opacity: 0.88;
+        margin-top: 2px;
+    }
+
+    @media (max-width: 768px) {
+        .portal-install-app-btn {
+            max-width: 100%;
+            padding: 12px 14px;
+            border-radius: 14px;
+            margin: 12px 0 10px;
+        }
+
+        .install-app-icon {
+            width: 38px;
+            height: 38px;
+            font-size: 1.1rem;
+        }
+
+        .install-app-text strong {
+            font-size: 0.88rem;
+        }
+
+        .install-app-text small {
+            font-size: 0.67rem;
+        }
+    }
+</style>
+
+<body class="portal-login-page" data-page="login" data-portal-view="login">
+
+    <button class="theme-toggle-btn portal-theme-toggle portal-theme-toggle-floating" type="button"
+        onclick="toggleTheme(); return false;" title="Toggle light / dark theme" aria-label="Toggle light / dark theme">
+        <span class="icon-sun">â˜€ï¸</span>
+        <span class="icon-moon">ðŸŒ™</span>
+    </button>
+    <main class="portal-login-shell">
+        <section class="portal-login-brand-panel">
+
+            <div class="portal-brand">
+                <img src="images/logo.png" alt="Conquer Computers LLC">
+                <div>
+                    <strong>CONQUER</strong>
+                    <span>COMPUTERS LLC</span>
+                </div>
+            </div>
+            <div class="portal-login-copy">
+                <span class="portal-kicker">Secure Business Operations Portal</span>
+                <h1>Login to the Conquer Computers service workspace.</h1>
+                <p>Approved accounts are redirected automatically based on role. Admins access the management dashboard,
+                    while staff and users access the Job Card Portal.</p>
+                <div class="portal-login-highlights">
+                    <span>Admin approvals</span>
+                    <span>Job card workflow</span>
+                    <span>Quotation & invoice tools</span>
+                </div>
+                <button id="installAppBtn" class="portal-install-app-btn" type="button"
+                    aria-label="Install Conquer Computers App">
+                    <span class="install-app-icon">â¬‡</span>
+                    <span class="install-app-text">
+                        <strong>Install App</strong>
+                        <small>Use portal from your home screen</small>
+                    </span>
+                </button>
+                <a class="btn-outline portal-back-link" href="index.html">Back to Website</a>
+            </div>
+        </section>
+        <section class="portal-login-card-panel">
+            <div class="portal-auth" id="authBox">
+                <div class="portal-card auth-card">
+                    <h2>Login Portal</h2>
+                    <p>Login with your registered Mail ID and password. Access is validated against your account status
+                        and portal permissions before any records open.</p>
+                    <input id="authName" type="hidden" value="" />
+                    <label class="form-field auth-field" for="authEmail">
+                        <span>Mail ID</span>
+                        <input autocomplete="email" id="authEmail" placeholder="Enter your email address" required=""
+                            type="email" />
+                    </label>
+                    <label class="form-field auth-field" for="authPassword">
+                        <span>Password</span>
+                        <input autocomplete="current-password" id="authPassword" placeholder="Enter your password"
+                            required="" type="password" />
+                    </label>
+                    <div class="auth-actions">
+                        <button class="btn-primary" onclick="loginUser(event); return false;"
+                            type="button"><span>Login</span></button>
+                        <button class="btn-outline" onclick="signupUser(event); return false;" type="button">Request
+                            Account</button>
+                    </div>
+                    <p class="auth-note">New account requests are stored securely and require admin activation before
+                        portal access.</p>
+                    <div aria-live="polite" class="portal-message" id="authMessage"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="static/js/django-firebase-compat.js?v=1"></script>
+    <script src="static/js/portal.js?v=23" defer></script>
+    <script src="/static/js/pwa-register.js" defer></script>
+    <script>
+        let deferredInstallPrompt = null;
+
+        function isAppAlreadyInstalled() {
+            return window.matchMedia("(display-mode: standalone)").matches ||
+                window.navigator.standalone === true;
+        }
+
+        window.addEventListener("beforeinstallprompt", (event) => {
+            event.preventDefault();
+
+            if (isAppAlreadyInstalled()) {
+                return;
+            }
+
+            deferredInstallPrompt = event;
+
+            const installButton = document.getElementById("installAppBtn");
+            if (installButton) {
+                installButton.hidden = false;
+            }
+        });
+
+        window.addEventListener("appinstalled", () => {
+            deferredInstallPrompt = null;
+
+            const installButton = document.getElementById("installAppBtn");
+            if (installButton) {
+                installButton.hidden = true;
+            }
+        });
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const installButton = document.getElementById("installAppBtn");
+
+            if (!installButton) {
+                return;
+            }
+
+            if (isAppAlreadyInstalled()) {
+                installButton.hidden = true;
+                return;
+            }
+
+            installButton.addEventListener("click", async () => {
+                if (!deferredInstallPrompt) {
+                    return;
+                }
+
+                deferredInstallPrompt.prompt();
+
+                await deferredInstallPrompt.userChoice;
+
+                deferredInstallPrompt = null;
+                installButton.hidden = true;
+            });
+        });
+    </script>
+</body>
+
+</html>
+
+
+

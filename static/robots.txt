@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /private-
+Disallow: /uploads/complaints/
+Sitemap: https://www.conquercomputers.com/sitemap.xml

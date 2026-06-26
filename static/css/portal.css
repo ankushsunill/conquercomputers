@@ -1,0 +1,2317 @@
+/* Portal theme aliases share the public website theme tokens without changing portal layout geometry. */
+:root {
+    --bg1: var(--bg);
+    --text1: var(--text);
+}
+
+.portal-section {
+    background: var(--bg1);
+}
+
+.portal-header {
+    min-height: 420px;
+}
+
+.portal-auth {
+    max-width: 520px;
+    margin: 0 auto;
+}
+
+.portal-card {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03));
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    padding: 28px;
+    border-radius: 0px;
+    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.22);
+    backdrop-filter: blur(18px);
+    transition: transform .35s ease, border-color .35s ease, box-shadow .35s ease;
+}
+
+.portal-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(32, 96, 216, 0.55);
+    box-shadow: 0 30px 90px rgba(32, 96, 216, 0.18);
+}
+
+.portal-card h2,
+.portal-card h3 {
+    margin-bottom: 12px;
+    color: var(--text1);
+}
+
+.portal-card p {
+    color: var(--text2);
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+.portal-card input,
+.portal-card textarea,
+.portal-card select {
+    width: 100%;
+    margin-top: 12px;
+    padding: 14px 15px;
+    border-radius: 0px;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    background: rgba(255, 255, 255, 0.06);
+    color: var(--text1);
+    font-family: Poppins, sans-serif;
+    outline: none;
+    transition: border-color .25s ease, box-shadow .25s ease;
+}
+
+.portal-card textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.portal-card input:focus,
+.portal-card textarea:focus,
+.portal-card select:focus {
+    border-color: #2060d8;
+    box-shadow: 0 0 0 4px rgba(32, 96, 216, 0.15);
+}
+
+.auth-actions,
+.pdf-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 18px;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.portal-message {
+    margin-top: 14px;
+    font-size: 13px;
+    color: #52b82a;
+}
+
+.portal-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 32px;
+}
+
+.portal-tabs {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 28px;
+}
+
+.portal-tab {
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    background: rgba(255, 255, 255, 0.06);
+    color: var(--text1);
+    padding: 12px 22px;
+    border-radius: 0px;
+    cursor: pointer;
+    font-family: Poppins, sans-serif;
+    transition: all .3s ease;
+}
+
+.portal-tab.active,
+.portal-tab:hover {
+    background: linear-gradient(90deg, #1aa8c4, #2060d8);
+    border-color: transparent;
+    color: #fff;
+}
+
+.portal-panel {
+    display: none;
+    animation: portalFade .45s ease forwards;
+}
+
+.portal-panel.active {
+    display: block;
+}
+
+@keyframes portalFade {
+    from {
+        opacity: 0;
+        transform: translateY(22px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.portal-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(320px, .8fr);
+    gap: 26px;
+    align-items: start;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+}
+
+.saved-list {
+    display: grid;
+    gap: 12px;
+    margin-top: 16px;
+}
+
+.saved-item {
+    padding: 14px;
+    border-radius: 0px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.05);
+    cursor: pointer;
+    transition: all .25s ease;
+}
+
+.saved-item:hover {
+    border-color: #1aa8c4;
+    transform: translateX(5px);
+}
+
+.saved-item strong {
+    display: block;
+    color: var(--text1);
+    font-size: 13px;
+}
+
+.saved-item span {
+    color: var(--text2);
+    font-size: 12px;
+}
+
+.pdf-area {
+    margin-top: 28px;
+    overflow-x: auto;
+}
+
+.jobcard-paper {
+    width: 900px;
+    min-height: 1120px;
+    background: #fff;
+    color: #111;
+    margin: 20px auto 0;
+    padding: 28px;
+    border: 3px solid #111;
+    font-family: Arial, sans-serif;
+}
+
+.jc-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 22px;
+    text-align: center;
+    border-bottom: 4px double #111;
+    padding-bottom: 22px;
+}
+
+.jc-logo img {
+    width: 90px;
+    height: 90px;
+    object-fit: contain;
+}
+
+.jc-header h2 {
+    color: #17306d;
+    letter-spacing: 1px;
+    margin: 0;
+    font-size: 30px;
+}
+
+.jc-header h4,
+.jc-header p {
+    margin: 6px 0;
+    color: #111;
+    font-weight: 700;
+}
+
+.jc-title {
+    font-size: 34px;
+    font-weight: 900;
+    text-align: center;
+    text-decoration: underline;
+    margin: 35px 0 50px;
+}
+
+.jc-main {
+    display: grid;
+    grid-template-columns: 1fr 360px;
+    gap: 40px;
+}
+
+.jc-address h4,
+.jc-desc h4 {
+    background: #111e67;
+    color: #fff;
+    padding: 8px;
+    margin: 0 0 14px;
+}
+
+.jc-address-row {
+    display: grid;
+    grid-template-columns: 95px 1fr;
+    gap: 8px;
+    align-items: flex-start;
+    margin: 8px 0;
+}
+
+.jc-address-row span {
+    font-weight: 800;
+    color: #111;
+    font-size: 15px;
+    line-height: 1.35;
+}
+
+.jc-address p {
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.35;
+    color: #111;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.jc-details div {
+    display: grid;
+    grid-template-columns: 145px 1fr;
+    border: 1px solid #111;
+    min-height: 34px;
+}
+
+.jc-details span {
+    padding: 8px;
+    text-align: right;
+    border-right: 1px solid #111;
+}
+
+.jc-details b {
+    padding: 8px;
+    font-weight: 400;
+}
+
+.jc-desc {
+    margin-top: 35px;
+    border: 2px solid #111;
+    min-height: 300px;
+}
+
+.jc-desc p {
+    padding: 18px;
+    font-size: 16px;
+    white-space: pre-wrap;
+}
+
+.jc-sign {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    margin-top: 90px;
+    border-top: 2px solid #111;
+    padding-top: 24px;
+}
+
+.jc-sign span {
+    display: block;
+    border-bottom: 1px solid #111;
+    min-height: 28px;
+}
+
+.jc-sign b {
+    display: block;
+    margin-top: 8px;
+}
+
+.jc-footer {
+    margin-top: 35px;
+    text-align: center;
+    font-size: 14px;
+}
+
+.jc-footer h3 {
+    font-size: 22px;
+    margin: 8px 0;
+}
+
+@media print {
+    body * {
+        visibility: hidden;
+    }
+
+    #jobCardPDF,
+    #jobCardPDF * {
+        visibility: visible;
+    }
+
+    #jobCardPDF {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        border: 2px solid #111;
+    }
+}
+
+@media (max-width: 900px) {
+
+    .portal-grid,
+    .form-grid,
+    .jc-main,
+    .jc-sign {
+        grid-template-columns: 1fr;
+    }
+
+    .portal-top {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .jobcard-paper {
+        width: 760px;
+    }
+}
+/* === Client portal corrections: labelled forms, auth button state, centered title, mobile-safe PDF area === */
+.nav-cta .is-logout,
+#mobileAuthButton.is-logout {
+    border-color: rgba(255, 120, 42, 0.8);
+}
+
+#mobileNav .mobile-cta {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-field {
+    display: block;
+    width: 100%;
+    margin-top: 12px;
+}
+
+.form-grid .form-field {
+    margin-top: 0;
+}
+
+.form-field > span {
+    display: block;
+    margin-bottom: 7px;
+    color: var(--text2);
+    font-size: 11px;
+    line-height: 1.35;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+    font-weight: 500;
+}
+
+.portal-card .form-field input,
+.portal-card .form-field textarea,
+.portal-card .form-field select {
+    margin-top: 0;
+}
+
+.portal-card input[readonly] {
+    opacity: 0.78;
+    cursor: not-allowed;
+}
+
+.auth-field > span {
+    color: var(--text1);
+}
+
+.jobcard-paper,
+.jobcard-paper * {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+}
+
+/* Keep the original job card template design. Only the title is centered. */
+.jc-title {
+    text-align: center !important;
+}
+
+.jc-details div,
+.jc-desc,
+.jc-sign,
+.jc-footer {
+    page-break-inside: avoid;
+    break-inside: avoid;
+}
+
+@media (max-width: 900px) {
+    .portal-grid,
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .portal-card {
+        padding: 20px;
+    }
+
+    .pdf-actions {
+        align-items: flex-start;
+    }
+
+    .pdf-actions > div {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .pdf-area {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .jobcard-paper {
+        width: 900px;
+        max-width: none;
+    }
+}
+
+@media (max-width: 560px) {
+    #mobileNav .mobile-cta {
+        flex-direction: column;
+        width: 100%;
+        padding-left: 24px;
+        padding-right: 24px;
+    }
+
+    #mobileNav .mobile-cta button {
+        width: 100%;
+        max-width: 280px;
+    }
+
+    .auth-actions,
+    .pdf-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .auth-actions button,
+    .pdf-actions button,
+    #jobCardForm button[type="submit"] {
+        width: 100%;
+    }
+}
+
+
+/* Job card address label responsive fix */
+@media (max-width: 576px) {
+    .jc-address-row {
+        grid-template-columns: 82px 1fr;
+        gap: 6px;
+    }
+
+    .jc-address-row span,
+    .jc-address p {
+        font-size: 13px;
+    }
+}
+
+
+.upload-note {
+    margin: -8px 0 14px;
+    color: var(--text-muted, #64748b);
+    font-size: 0.85rem;
+    line-height: 1.45;
+}
+
+.form-field small {
+    font-weight: 500;
+    color: var(--text-muted, #64748b);
+}
+
+
+/* === Production update v16: login flow, portal selection, delivery portal, admin user dashboard === */
+.auth-note {
+    margin-top: 14px;
+    color: var(--text2);
+    font-size: 12px;
+    line-height: 1.65;
+}
+
+.portal-chooser,
+.portal-admin-dashboard {
+    margin-bottom: 28px;
+}
+
+.portal-choice-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+    margin-top: 20px;
+}
+
+.portal-choice-card {
+    min-height: 138px;
+    display: grid;
+    align-content: center;
+    gap: 8px;
+    padding: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text1);
+    text-align: left;
+    cursor: pointer;
+    transition: transform .32s ease, border-color .32s ease, background-color .32s ease;
+}
+
+.portal-choice-card strong {
+    font-size: 17px;
+    letter-spacing: .2px;
+}
+
+.portal-choice-card span {
+    color: var(--text2);
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+.portal-choice-card:hover,
+.portal-choice-card:focus-visible {
+    transform: translateY(-5px);
+    border-color: rgba(32, 96, 216, 0.62);
+    background: rgba(32, 96, 216, 0.12);
+    outline: none;
+}
+
+.admin-top {
+    margin-bottom: 18px;
+}
+
+.admin-user-list {
+    display: grid;
+    gap: 14px;
+    margin-top: 18px;
+}
+
+.admin-user-row {
+    display: grid;
+    grid-template-columns: minmax(220px, 1fr) auto;
+    gap: 18px;
+    align-items: center;
+    padding: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.admin-user-info {
+    display: grid;
+    gap: 5px;
+}
+
+.admin-user-info strong {
+    color: var(--text1);
+    font-size: 14px;
+}
+
+.admin-user-info span {
+    color: var(--text2);
+    font-size: 12px;
+    word-break: break-word;
+}
+
+.admin-user-controls {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.admin-user-controls select {
+    width: auto;
+    min-width: 130px;
+    margin-top: 0;
+    padding: 12px 14px;
+}
+
+.admin-save-btn {
+    min-width: 138px;
+}
+
+@media (max-width: 1024px) {
+    .portal-choice-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 900px) {
+    .admin-user-row {
+        grid-template-columns: 1fr;
+    }
+
+    .admin-user-controls {
+        justify-content: flex-start;
+    }
+}
+
+@media (max-width: 640px) {
+    .portal-choice-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .portal-choice-card {
+        min-height: 0;
+    }
+
+    .admin-user-controls,
+    .admin-user-controls select,
+    .admin-save-btn {
+        width: 100%;
+    }
+}
+
+
+/* === Admin quotation / invoice workspace === */
+.admin-finance-workspace {
+    margin-top: 28px;
+}
+
+.nested-card {
+    padding: 22px;
+    box-shadow: none;
+    background: rgba(255, 255, 255, 0.045);
+}
+
+.admin-finance-grid {
+    margin-top: 24px;
+}
+
+.financial-saved-grid {
+    margin-top: 24px;
+}
+
+.financial-totals-preview {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin: 16px 0 8px;
+    padding: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text1);
+    font-size: 13px;
+}
+
+.financial-totals-preview strong {
+    color: #52b82a;
+}
+
+.admin-record-list .saved-item {
+    display: grid;
+    gap: 4px;
+}
+
+.saved-item .saved-meta {
+    display: block;
+    color: var(--text2);
+    font-size: 12px;
+    line-height: 1.55;
+}
+
+.financial-pdf-area {
+    margin-top: 26px;
+}
+
+.financial-paper {
+    position: relative;
+    width: 900px;
+    min-height: 1120px;
+    background: #fff;
+    color: #111;
+    margin: 20px auto 0;
+    padding: 88px 54px 82px;
+    overflow: hidden;
+    font-family: Georgia, 'Times New Roman', serif;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.financial-top-band,
+.financial-bottom-band {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 56px;
+    background: #202126;
+    overflow: hidden;
+}
+
+.financial-top-band { top: 0; }
+.financial-bottom-band { bottom: 0; }
+
+.financial-corner {
+    position: absolute;
+    width: 122px;
+    height: 122px;
+    border-radius: 50%;
+    background: #d29437;
+    border: 4px solid #202126;
+}
+
+.financial-top-band .financial-corner-left { left: -47px; top: -68px; }
+.financial-top-band .financial-corner-right { right: -47px; top: -68px; }
+.financial-bottom-band .financial-corner-left { left: -47px; bottom: -68px; }
+.financial-bottom-band .financial-corner-right { right: -47px; bottom: -68px; }
+
+.financial-header {
+    display: grid;
+    grid-template-columns: 154px 1fr 220px;
+    align-items: start;
+    gap: 18px;
+    min-height: 138px;
+}
+
+.financial-logo img {
+    width: 146px;
+    height: 118px;
+    object-fit: contain;
+    border: 1px solid rgba(119, 116, 15, 0.35);
+}
+
+.financial-company h2,
+.financial-header h3 {
+    margin: 0;
+    color: #717300;
+    letter-spacing: 0;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-weight: 700;
+}
+
+.financial-company h2 {
+    margin-top: 4px;
+    font-size: 27px;
+}
+
+.financial-company p {
+    margin: 7px 0;
+    color: #111;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.financial-header h3 {
+    text-align: right;
+    font-size: 28px;
+    line-height: 1.15;
+    text-transform: uppercase;
+}
+
+.financial-client-row {
+    display: grid;
+    grid-template-columns: 1fr 290px;
+    gap: 32px;
+    align-items: center;
+    margin-top: 44px;
+    min-height: 132px;
+}
+
+.financial-to h4 {
+    margin: 0 0 12px;
+    font-size: 26px;
+    font-weight: 700;
+    color: #111;
+}
+
+.financial-to p {
+    margin: 7px 0;
+    font-size: 17px;
+    color: #111;
+    font-weight: 700;
+    line-height: 1.3;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.financial-meta {
+    display: grid;
+    gap: 18px;
+    font-size: 17px;
+}
+
+.financial-meta div {
+    display: grid;
+    grid-template-columns: 72px 1fr;
+    gap: 14px;
+    align-items: center;
+}
+
+.financial-meta span,
+.financial-total-line span {
+    color: #717300;
+    font-weight: 700;
+}
+
+.financial-meta strong {
+    text-align: right;
+    color: #111;
+    font-weight: 700;
+}
+
+.financial-pill-row {
+    display: grid;
+    grid-template-columns: 1fr 310px;
+    justify-content: space-between;
+    gap: 32px;
+    align-items: center;
+    margin-top: 28px;
+}
+
+.financial-pill-row span {
+    display: block;
+    padding: 6px 18px 7px;
+    border-radius: 999px;
+    border: 2px solid #111;
+    background: #878900;
+    color: #111;
+    text-align: center;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.financial-table {
+    width: 100%;
+    margin-top: 8px;
+    border-collapse: collapse;
+    table-layout: fixed;
+    color: #111;
+    font-family: Georgia, 'Times New Roman', serif;
+}
+
+.financial-table th,
+.financial-table td {
+    border-left: 1px solid #111;
+    border-right: 1px solid #111;
+    padding: 5px 8px;
+    vertical-align: top;
+    font-size: 16px;
+    line-height: 1.25;
+    word-break: break-word;
+}
+
+.financial-table thead th {
+    background: #878900;
+    border-top: 2px solid #111;
+    border-bottom: 2px solid #111;
+    font-weight: 700;
+    text-align: center;
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+
+.financial-table th:nth-child(1), .financial-table td:nth-child(1) { width: 72px; text-align: center; }
+.financial-table th:nth-child(2), .financial-table td:nth-child(2) { width: auto; }
+.financial-table th:nth-child(3), .financial-table td:nth-child(3) { width: 100px; text-align: center; }
+.financial-table th:nth-child(4), .financial-table td:nth-child(4) { width: 100px; text-align: right; }
+.financial-table th:nth-child(5), .financial-table td:nth-child(5) { width: 100px; text-align: right; }
+
+.financial-table tbody tr:first-child td {
+    min-height: 40px;
+}
+
+.financial-note-row td {
+    background: #e8e8e8;
+    border-top: 0;
+    border-bottom: 0;
+}
+
+.financial-tax-row td {
+    border-left: 0;
+    border-right: 0;
+    font-size: 16px;
+    padding-top: 10px;
+}
+
+.financial-tax-row td:nth-child(2) {
+    padding-left: 16px;
+}
+
+.financial-bottom-row {
+    display: grid;
+    grid-template-columns: 1fr 290px;
+    gap: 42px;
+    align-items: end;
+    min-height: 355px;
+    margin-top: 26px;
+}
+
+.financial-bank-rule {
+    width: 430px;
+    max-width: 100%;
+    height: 18px;
+    border-top: 3px solid #717300;
+    border-bottom: 3px solid #717300;
+    margin-bottom: 12px;
+}
+
+.financial-bank p {
+    margin: 10px 0;
+    color: #111;
+    font-size: 16px;
+    line-height: 1.25;
+    font-weight: 700;
+}
+
+.financial-total-sign {
+    display: grid;
+    gap: 34px;
+    justify-items: stretch;
+}
+
+.financial-total-line {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 18px;
+    align-items: end;
+    padding-bottom: 12px;
+    border-bottom: 3px solid #717300;
+    position: relative;
+    color: #111;
+    font-size: 18px;
+}
+
+.financial-total-line::after {
+    content: '';
+    position: absolute;
+    left: 66px;
+    right: 0;
+    bottom: -14px;
+    border-bottom: 3px solid #717300;
+}
+
+.financial-total-line strong {
+    color: #111;
+    font-weight: 700;
+}
+
+.financial-signature {
+    text-align: center;
+    color: #717300;
+}
+
+.financial-stamp-placeholder {
+    min-height: 72px;
+    padding: 20px 8px;
+    border: 2px dashed rgba(113, 115, 0, 0.6);
+    color: rgba(113, 115, 0, 0.9);
+    font-size: 14px;
+    font-weight: 700;
+    transform: rotate(-6deg);
+}
+
+.financial-signature em {
+    display: block;
+    margin-top: 14px;
+    font-size: 16px;
+    font-style: italic;
+}
+
+.financial-footer {
+    position: absolute;
+    left: 54px;
+    right: 54px;
+    bottom: 84px;
+    text-align: center;
+}
+
+.financial-footer p {
+    margin: 4px 0;
+    color: #717300;
+    font-size: 16px;
+    font-style: italic;
+    font-weight: 700;
+}
+
+@media print {
+    #financialDocumentPDF,
+    #financialDocumentPDF * {
+        visibility: visible;
+    }
+}
+
+@media (max-width: 900px) {
+    .financial-paper {
+        width: 900px;
+    }
+
+    .financial-totals-preview {
+        flex-direction: column;
+    }
+}
+
+
+/* === Phase 1 v20: separate full-screen portal dashboards, workflow, history, profile security === */
+.portal-login-page,
+.portal-app-page {
+    min-height: 100vh;
+    background: var(--bg1);
+    color: var(--text1);
+}
+
+.portal-login-page {
+    overflow-x: hidden;
+}
+
+.portal-login-shell {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: minmax(320px, 1.05fr) minmax(360px, .95fr);
+    gap: clamp(24px, 4vw, 72px);
+    align-items: center;
+    padding: clamp(24px, 5vw, 72px);
+    background:
+        radial-gradient(circle at 15% 18%, rgba(32, 96, 216, .24), transparent 34%),
+        radial-gradient(circle at 82% 16%, rgba(26, 168, 196, .18), transparent 30%),
+        linear-gradient(135deg, rgba(255, 255, 255, .03), rgba(255, 255, 255, 0));
+}
+
+.portal-login-brand-panel,
+.portal-login-card-panel {
+    min-width: 0;
+}
+
+.portal-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 18px;
+    color: var(--text1);
+}
+
+.portal-brand img {
+    width: 74px;
+    height: 74px;
+    object-fit: contain;
+    flex: 0 0 auto;
+}
+
+.portal-brand div {
+    display: grid;
+    gap: 2px;
+    line-height: 1.05;
+}
+
+.portal-brand strong,
+.portal-brand span {
+    display: block;
+    white-space: nowrap;
+    letter-spacing: 1px;
+}
+
+.portal-brand strong {
+    font-size: 24px;
+    color: #52b82a;
+}
+
+.portal-brand span {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--text1);
+}
+
+.portal-brand-compact {
+    width: 100%;
+    padding: 6px 4px 26px;
+}
+
+.portal-brand-compact img {
+    width: 58px;
+    height: 58px;
+}
+
+.portal-brand-compact strong {
+    font-size: 17px;
+}
+
+.portal-brand-compact span {
+    font-size: 12px;
+}
+
+.portal-login-copy {
+    max-width: 720px;
+    margin-top: 36px;
+}
+
+.portal-kicker {
+    display: inline-flex;
+    margin-bottom: 14px;
+    color: #52b82a;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.portal-login-copy h1,
+.portal-dashboard-head h1 {
+    margin: 0 0 16px;
+    color: var(--text1);
+    font-size: clamp(34px, 4vw, 30px);
+    line-height: 1.08;
+}
+
+.portal-dashboard-head.compact h1 {
+    font-size: clamp(28px, 3vw, 46px);
+}
+
+.portal-login-copy p,
+.portal-dashboard-head p {
+    max-width: 760px;
+    color: var(--text2);
+    font-size: 15px;
+    line-height: 1.8;
+}
+
+.portal-login-highlights,
+.portal-chip-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 26px;
+}
+
+.portal-login-highlights span,
+.portal-chip {
+    border: 1px solid rgba(255,255,255,.15);
+    background: rgba(255,255,255,.07);
+    color: var(--text1);
+    padding: 12px 16px;
+    font-family: Poppins, sans-serif;
+    font-size: 12px;
+    letter-spacing: .4px;
+}
+
+.portal-chip {
+    cursor: pointer;
+    transition: transform .25s ease, border-color .25s ease, background-color .25s ease;
+}
+
+.portal-chip:hover,
+.portal-chip:focus-visible {
+    border-color: rgba(82, 184, 42, .6);
+    background: rgba(82, 184, 42, .12);
+    transform: translateY(-3px);
+    outline: none;
+}
+
+.portal-back-link {
+    display: inline-flex;
+    margin-top: 28px;
+}
+
+.portal-login-card-panel .portal-auth {
+    max-width: 560px;
+    margin: 0 auto;
+}
+
+.portal-login-card-panel .portal-card {
+    padding: clamp(24px, 3vw, 42px);
+}
+
+.portal-access-gate {
+    height: 100vh;
+    display: grid;
+    place-items: center;
+    color: var(--text1);
+    font-size: 15px;
+    letter-spacing: 1px;
+    background:
+        radial-gradient(circle at center, rgba(32, 96, 216, .2), transparent 28%),
+        var(--bg1);
+}
+
+.portal-app-page {
+    overflow: hidden;
+}
+
+.portal-app-shell {
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 310px minmax(0, 1fr);
+    background: var(--bg1);
+}
+
+.portal-sidebar {
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    padding: 26px 20px;
+    border-right: 1px solid rgba(255,255,255,.1);
+    background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+}
+
+.portal-sidebar-nav {
+    display: grid;
+    gap: 10px;
+    min-height: 0;
+    overflow-y: auto;
+    padding-right: 4px;
+}
+
+.portal-sidebar-nav button,
+.portal-profile-pill {
+    width: 100%;
+    border: 1px solid rgba(255,255,255,.14);
+    background: rgba(255,255,255,.045);
+    color: var(--text1);
+    padding: 14px 15px;
+    text-align: left;
+    font-family: Poppins, sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform .25s ease, border-color .25s ease, background .25s ease;
+}
+
+.portal-sidebar-nav button:hover,
+.portal-sidebar-nav button.active,
+.portal-profile-pill:hover,
+.portal-profile-pill:focus-visible {
+    border-color: rgba(32,96,216,.65);
+    background: linear-gradient(90deg, rgba(26,168,196,.22), rgba(32,96,216,.24));
+    transform: translateX(4px);
+    outline: none;
+}
+
+.portal-sidebar-footer {
+    display: grid;
+    gap: 12px;
+    margin-top: auto;
+    padding-top: 22px;
+}
+
+.portal-sidebar-footer a,
+.portal-sidebar-footer button {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+}
+
+.portal-app-stage {
+    min-width: 0;
+    min-height: 0;
+    display: grid;
+    grid-template-rows: 88px minmax(0, 1fr);
+}
+
+.portal-app-topbar {
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 18px clamp(18px, 3vw, 38px);
+    border-bottom: 1px solid rgba(255,255,255,.1);
+    background: rgba(255,255,255,.03);
+}
+
+.portal-app-topbar > div:first-child {
+    min-width: 0;
+    display: grid;
+    gap: 4px;
+}
+
+.portal-app-topbar span {
+    color: var(--text2);
+    font-size: 12px;
+    letter-spacing: 1px;
+}
+
+.portal-app-topbar strong {
+    color: var(--text1);
+    font-size: clamp(17px, 2vw, 24px);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.portal-topbar-meta {
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 12px;
+}
+
+.portal-topbar-meta > span {
+    max-width: 260px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.portal-profile-pill {
+    width: auto;
+    min-width: 96px;
+    padding: 11px 15px;
+    text-align: center;
+}
+
+.portal-app-content {
+    min-width: 0;
+    min-height: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: clamp(18px, 3vw, 38px);
+}
+
+.portal-workspace-panel {
+    display: none;
+    animation: portalFade .35s ease forwards;
+}
+
+.portal-workspace-panel.active {
+    display: grid;
+    gap: 24px;
+}
+
+.portal-dashboard-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 20px;
+}
+
+.portal-metric-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.portal-metric-card {
+    min-height: 128px;
+    display: grid;
+    align-content: center;
+    gap: 10px;
+    padding: 22px;
+    border: 1px solid rgba(255,255,255,.12);
+    background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.035));
+}
+
+.portal-metric-card span {
+    color: var(--text2);
+    font-size: 12px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.portal-metric-card strong {
+    color: var(--text1);
+    font-size: clamp(30px, 3vw, 48px);
+    line-height: 1;
+}
+
+.portal-quick-actions {
+    display: grid;
+    gap: 4px;
+}
+
+.phase-one-workflow-grid {
+    margin: 18px 0 6px;
+}
+
+.portal-inline-note {
+    margin: 6px 0 18px;
+    padding: 12px 14px;
+    border-left: 3px solid #52b82a;
+    background: rgba(82,184,42,.08);
+}
+
+.portal-subheading {
+    margin: 20px 0 12px;
+    color: var(--text1);
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: .5px;
+}
+
+.workflow-jobcard-list,
+.history-list {
+    display: grid;
+    gap: 16px;
+    margin-top: 18px;
+}
+
+.workflow-jobcard-row {
+    display: grid;
+    grid-template-columns: minmax(220px, .95fr) minmax(420px, 1.45fr);
+    gap: 18px;
+    align-items: center;
+    padding: 18px;
+    border: 1px solid rgba(255,255,255,.12);
+    background: rgba(255,255,255,.045);
+}
+
+.workflow-jobcard-intro {
+    display: grid;
+    gap: 6px;
+}
+
+.workflow-jobcard-intro strong,
+.history-item strong {
+    color: var(--text1);
+    font-size: 15px;
+}
+
+.workflow-jobcard-intro span,
+.workflow-jobcard-intro small,
+.history-item span,
+.history-item small {
+    color: var(--text2);
+    font-size: 12px;
+    line-height: 1.55;
+}
+
+.workflow-jobcard-controls {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(150px, 1fr));
+    gap: 10px;
+    align-items: center;
+}
+
+.workflow-jobcard-controls select,
+.workflow-jobcard-controls input {
+    width: 100%;
+    margin: 0;
+    padding: 12px 13px;
+    border: 1px solid rgba(255,255,255,.14);
+    background: rgba(255,255,255,.06);
+    color: var(--text1);
+    font-family: Poppins, sans-serif;
+}
+
+.workflow-jobcard-controls button {
+    min-height: 48px;
+}
+
+.portal-history-grid,
+.portal-profile-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px;
+}
+
+.history-search input {
+    margin-top: 12px;
+}
+
+.history-item {
+    display: grid;
+    gap: 6px;
+    padding: 16px;
+    border: 1px solid rgba(255,255,255,.12);
+    background: rgba(255,255,255,.045);
+}
+
+.profile-summary-list {
+    display: grid;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.profile-summary-list div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 14px;
+    padding: 14px;
+    border: 1px solid rgba(255,255,255,.12);
+    background: rgba(255,255,255,.045);
+}
+
+.profile-summary-list span {
+    color: var(--text2);
+    font-size: 12px;
+    letter-spacing: .7px;
+    text-transform: uppercase;
+}
+
+.profile-summary-list strong {
+    color: var(--text1);
+    font-size: 13px;
+    text-align: right;
+    word-break: break-word;
+}
+
+.profile-password-actions {
+    justify-content: flex-start;
+}
+
+.job-card-dashboard-page .portal-grid {
+    grid-template-columns: minmax(0, 1.15fr) minmax(320px, .85fr);
+}
+
+.mirror-list .saved-item {
+    cursor: pointer;
+}
+
+@media (max-width: 1280px) {
+    .portal-app-shell {
+        grid-template-columns: 260px minmax(0, 1fr);
+    }
+    .portal-metric-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .workflow-jobcard-row {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 1024px) {
+    .portal-login-shell {
+        grid-template-columns: 1fr;
+        align-items: start;
+        padding-top: 36px;
+    }
+    .portal-app-shell {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto minmax(0, 1fr);
+    }
+    .portal-sidebar {
+        padding: 16px;
+        border-right: 0;
+        border-bottom: 1px solid rgba(255,255,255,.1);
+    }
+    .portal-brand-compact {
+        padding-bottom: 14px;
+    }
+    .portal-sidebar-nav {
+        display: flex;
+        gap: 10px;
+        overflow-x: auto;
+        overflow-y: hidden;
+        padding-bottom: 6px;
+    }
+    .portal-sidebar-nav button {
+        width: auto;
+        white-space: nowrap;
+        flex: 0 0 auto;
+    }
+    .portal-sidebar-footer {
+        display: flex;
+        flex-wrap: wrap;
+        margin-top: 14px;
+        padding-top: 0;
+    }
+    .portal-sidebar-footer a,
+    .portal-sidebar-footer button {
+        width: auto;
+        min-width: 140px;
+    }
+    .portal-app-stage {
+        grid-template-rows: auto minmax(0, 1fr);
+    }
+    .portal-history-grid,
+    .portal-profile-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 760px) {
+    .portal-app-topbar,
+    .portal-dashboard-head,
+    .portal-topbar-meta {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+    .portal-app-topbar strong,
+    .portal-topbar-meta > span {
+        max-width: 100%;
+    }
+    .portal-metric-grid,
+    .workflow-jobcard-controls,
+    .form-grid,
+    .job-card-dashboard-page .portal-grid {
+        grid-template-columns: 1fr;
+    }
+    .portal-brand strong,
+    .portal-brand span {
+        white-space: normal;
+    }
+}
+
+
+/* === Portal v21: light / dark theme support without altering layout or workflow === */
+.portal-theme-toggle {
+    flex: 0 0 auto;
+}
+
+.portal-theme-toggle-floating {
+    position: fixed;
+    top: clamp(18px, 3vw, 30px);
+    right: clamp(18px, 3vw, 30px);
+    z-index: 1200;
+    background: rgba(255, 255, 255, .055);
+    backdrop-filter: blur(16px);
+}
+
+[data-theme="dark"] .portal-theme-toggle-floating {
+    box-shadow: 0 18px 48px rgba(0, 0, 0, .28);
+}
+
+[data-theme="light"] .portal-theme-toggle-floating {
+    background: rgba(255, 255, 255, .88);
+    box-shadow: 0 18px 48px rgba(24, 29, 35, .12);
+}
+
+[data-theme="light"] .portal-login-shell {
+    background:
+        radial-gradient(circle at 15% 18%, rgba(32, 96, 216, .16), transparent 34%),
+        radial-gradient(circle at 82% 16%, rgba(26, 168, 196, .12), transparent 30%),
+        linear-gradient(135deg, rgba(255, 255, 255, .82), rgba(255, 255, 255, .18));
+}
+
+[data-theme="light"] .portal-card,
+[data-theme="light"] .portal-metric-card,
+[data-theme="light"] .workflow-jobcard-row,
+[data-theme="light"] .history-item,
+[data-theme="light"] .profile-summary-list div,
+[data-theme="light"] .saved-item,
+[data-theme="light"] .portal-login-highlights span,
+[data-theme="light"] .portal-chip {
+    border-color: rgba(20, 35, 50, .12);
+    background: linear-gradient(180deg, rgba(255, 255, 255, .97), rgba(246, 248, 250, .93));
+    box-shadow: 0 20px 55px rgba(24, 29, 35, .08);
+}
+
+[data-theme="light"] .portal-card:hover {
+    border-color: rgba(32, 96, 216, .42);
+    box-shadow: 0 28px 72px rgba(32, 96, 216, .13);
+}
+
+[data-theme="light"] .portal-sidebar {
+    border-right-color: rgba(20, 35, 50, .10);
+    border-bottom-color: rgba(20, 35, 50, .10);
+    background: linear-gradient(180deg, rgba(255, 255, 255, .95), rgba(241, 244, 248, .92));
+}
+
+[data-theme="light"] .portal-app-topbar {
+    border-bottom-color: rgba(20, 35, 50, .10);
+    background: rgba(255, 255, 255, .86);
+    backdrop-filter: blur(18px);
+}
+
+[data-theme="light"] .portal-sidebar-nav button,
+[data-theme="light"] .portal-profile-pill,
+[data-theme="light"] .portal-tab {
+    border-color: rgba(20, 35, 50, .13);
+    background: rgba(255, 255, 255, .78);
+}
+
+[data-theme="light"] .portal-sidebar-nav button:hover,
+[data-theme="light"] .portal-sidebar-nav button.active,
+[data-theme="light"] .portal-profile-pill:hover,
+[data-theme="light"] .portal-profile-pill:focus-visible {
+    border-color: rgba(32, 96, 216, .45);
+    background: linear-gradient(90deg, rgba(26, 168, 196, .14), rgba(32, 96, 216, .15));
+}
+
+[data-theme="light"] .portal-chip:hover,
+[data-theme="light"] .portal-chip:focus-visible {
+    border-color: rgba(82, 184, 42, .48);
+    background: rgba(82, 184, 42, .12);
+}
+
+[data-theme="light"] .portal-card input,
+[data-theme="light"] .portal-card textarea,
+[data-theme="light"] .portal-card select,
+[data-theme="light"] .workflow-jobcard-controls select,
+[data-theme="light"] .workflow-jobcard-controls input {
+    border-color: rgba(20, 35, 50, .15);
+    background: rgba(255, 255, 255, .92);
+    color: var(--text1);
+}
+
+[data-theme="light"] .portal-card input::placeholder,
+[data-theme="light"] .portal-card textarea::placeholder,
+[data-theme="light"] .workflow-jobcard-controls input::placeholder {
+    color: rgba(26, 24, 21, .52);
+}
+
+[data-theme="light"] .portal-card select option,
+[data-theme="light"] .workflow-jobcard-controls select option {
+    color: #1a1815;
+    background: #ffffff;
+}
+
+[data-theme="light"] .portal-access-gate {
+    background:
+        radial-gradient(circle at center, rgba(32, 96, 216, .14), transparent 28%),
+        var(--bg1);
+}
+
+[data-theme="light"] .portal-inline-note {
+    background: rgba(82, 184, 42, .10);
+}
+
+[data-theme="light"] .portal-message {
+    color: #2f8a1d;
+}
+
+@media (max-width: 640px) {
+    .portal-theme-toggle-floating {
+        top: 16px;
+        right: 16px;
+    }
+
+    .portal-topbar-meta .portal-theme-toggle {
+        width: 38px;
+        min-width: 38px;
+    }
+}
+
+/* ==========================================================
+   Portal Cursor Fix
+   Restores normal cursor only for login and dashboard pages
+   without affecting the main website custom cursor
+   ========================================================== */
+
+.portal-login-page,
+.portal-login-page *,
+.portal-app-page,
+.portal-app-page * {
+    cursor: default !important;
+}
+
+/* Clickable elements */
+.portal-login-page a,
+.portal-login-page button,
+.portal-login-page .btn,
+.portal-login-page [role="button"],
+.portal-app-page a,
+.portal-app-page button,
+.portal-app-page .btn,
+.portal-app-page [role="button"] {
+    cursor: pointer !important;
+}
+
+/* Text fields */
+.portal-login-page input,
+.portal-login-page textarea,
+.portal-app-page input,
+.portal-app-page textarea {
+    cursor: text !important;
+}
+
+/* Dropdowns */
+.portal-login-page select,
+.portal-app-page select {
+    cursor: pointer !important;
+}
+
+
+/* =========================================================
+   Phase 2 Production Extensions: admin intake, support,
+   AMC, inventory, reports, audit, SLA visibility
+========================================================= */
+.admin-create-job-form,
+.operations-two-column,
+.support-queue-grid,
+.support-client-grid { gap: 20px; }
+.admin-create-job-form .portal-subheading { margin-top: 18px; }
+.admin-schedule-grid { margin-top: 12px; }
+.admin-access-toggles { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.admin-access-toggles label { display: inline-flex; align-items: center; gap: 6px; padding: 8px 10px; border: 1px solid rgba(255,255,255,.14); border-radius: 999px; font-size: .82rem; }
+html[data-theme="light"] .admin-access-toggles label { border-color: rgba(12,20,32,.14); }
+.support-admin-list,
+.operations-record-list { display: grid; gap: 12px; }
+.support-admin-row,
+.operations-record-row { display: grid; gap: 10px; padding: 14px; border: 1px solid rgba(255,255,255,.12); border-radius: 16px; background: rgba(255,255,255,.035); }
+html[data-theme="light"] .support-admin-row,
+html[data-theme="light"] .operations-record-row { border-color: rgba(12,20,32,.10); background: rgba(12,20,32,.03); }
+.support-admin-row > div:first-child,
+.operations-record-row { min-width: 0; }
+.support-admin-row strong,
+.operations-record-row strong { display: block; font-weight: 600; }
+.support-admin-row span,
+.operations-record-row span,
+.support-admin-row small,
+.operations-record-row small { display: block; opacity: .86; overflow-wrap: anywhere; }
+.support-admin-controls { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.support-admin-controls select { min-width: 160px; }
+.workflow-jobcard-row.is-overdue,
+.operations-record-row.is-overdue,
+.operations-record-row.low-stock,
+.operations-record-row.amc-expired { border-color: rgba(255,96,96,.55); }
+.operations-record-row.is-at-risk,
+.operations-record-row.amc-expiring { border-color: rgba(255,184,77,.6); }
+.workflow-jobcard-intro em { display: inline-flex; width: fit-content; padding: 5px 9px; border-radius: 999px; background: rgba(255,96,96,.16); color: #ffb4b4; font-style: normal; font-size: .78rem; }
+.enhanced-workflow-controls { grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); }
+.report-metric-grid { margin-bottom: 22px; }
+.operations-record-row[role="button"] { cursor: pointer; transition: transform .2s ease, border-color .2s ease; }
+.operations-record-row[role="button"]:hover { transform: translateY(-2px); }
+.portal-feature-panel .portal-dashboard-head p { max-width: 760px; }
+@media (min-width: 960px) {
+  .operations-two-column, .support-queue-grid, .support-client-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 760px) {
+  .support-admin-controls { display: grid; grid-template-columns: 1fr; }
+  .support-admin-controls select, .support-admin-controls button { width: 100%; }
+  .admin-access-toggles { width: 100%; }
+}
+
+/* =========================================================
+   Smooth Scroll + Hidden Scrollbar
+   Keeps scrolling active but hides scrollbar visually
+========================================================= */
+
+/* Smooth page scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Prevent unwanted horizontal scrollbar */
+html,
+body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* Keep vertical scrolling working smoothly */
+body {
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Hide scrollbar for Firefox and old Edge */
+html,
+body,
+* {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+/* Hide scrollbar for Chrome, Safari, Edge */
+html::-webkit-scrollbar,
+body::-webkit-scrollbar,
+*::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  display: none;
+}
+
+/* =========================================================
+   Dashboard / User Portal Smooth Hidden Scrollbars
+========================================================= */
+
+.portal-shell,
+.portal-layout,
+.portal-main,
+.portal-content,
+.portal-sidebar,
+.admin-dashboard,
+.job-card-dashboard,
+.saved-job-list,
+.assigned-job-list,
+.table-responsive,
+.table-scroll,
+.portal-table-wrap,
+.admin-panel,
+.user-panel {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.portal-shell::-webkit-scrollbar,
+.portal-layout::-webkit-scrollbar,
+.portal-main::-webkit-scrollbar,
+.portal-content::-webkit-scrollbar,
+.portal-sidebar::-webkit-scrollbar,
+.admin-dashboard::-webkit-scrollbar,
+.job-card-dashboard::-webkit-scrollbar,
+.saved-job-list::-webkit-scrollbar,
+.assigned-job-list::-webkit-scrollbar,
+.table-responsive::-webkit-scrollbar,
+.table-scroll::-webkit-scrollbar,
+.portal-table-wrap::-webkit-scrollbar,
+.admin-panel::-webkit-scrollbar,
+.user-panel::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  display: none;
+}
+
+/* =========================================================
+   Admin Dashboard Responsive Repair - v24
+   Makes every dashboard section available on phones/tablets,
+   prevents right-edge clipping, and preserves all JS actions.
+========================================================= */
+@media (max-width: 1024px) {
+    .admin-dashboard-page.portal-app-page {
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
+
+    .admin-dashboard-page .portal-app-shell {
+        height: auto;
+        min-height: 100vh;
+        min-height: 100svh;
+    }
+
+    .admin-dashboard-page .portal-sidebar,
+    .admin-dashboard-page .portal-app-stage,
+    .admin-dashboard-page .portal-app-content {
+        min-width: 0;
+        max-width: 100%;
+    }
+
+    .admin-dashboard-page .portal-sidebar-nav {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 10px;
+        overflow: visible;
+        padding-right: 0;
+        padding-bottom: 0;
+    }
+
+    .admin-dashboard-page .portal-sidebar-nav button {
+        width: 100%;
+        min-width: 0;
+        white-space: normal;
+        overflow-wrap: anywhere;
+        text-align: center;
+    }
+
+    .admin-dashboard-page .portal-sidebar-footer {
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+        margin-top: 14px;
+        padding-top: 0;
+    }
+
+    .admin-dashboard-page .portal-sidebar-footer a,
+    .admin-dashboard-page .portal-sidebar-footer button {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .admin-dashboard-page .portal-app-content {
+        overflow: visible;
+    }
+}
+
+@media (max-width: 760px) {
+    .admin-dashboard-page .portal-app-shell,
+    .admin-dashboard-page .portal-app-stage,
+    .admin-dashboard-page .portal-sidebar,
+    .admin-dashboard-page .portal-app-content,
+    .admin-dashboard-page .portal-workspace-panel,
+    .admin-dashboard-page .portal-card,
+    .admin-dashboard-page .portal-metric-card,
+    .admin-dashboard-page .workflow-jobcard-row,
+    .admin-dashboard-page .history-item,
+    .admin-dashboard-page .support-admin-row,
+    .admin-dashboard-page .operations-record-row {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
+    }
+
+    .admin-dashboard-page .portal-sidebar {
+        padding: 16px 14px;
+    }
+
+    .admin-dashboard-page .portal-brand-compact {
+        align-items: center;
+        gap: 14px;
+        padding: 4px 0 16px;
+    }
+
+    .admin-dashboard-page .portal-brand-compact img {
+        width: 56px;
+        height: 56px;
+    }
+
+    .admin-dashboard-page .portal-sidebar-nav {
+        grid-template-columns: 1fr;
+    }
+
+    .admin-dashboard-page .portal-sidebar-nav button {
+        min-height: 52px;
+        padding: 13px 14px;
+        text-align: left;
+    }
+
+    .admin-dashboard-page .portal-sidebar-footer {
+        grid-template-columns: 1fr;
+    }
+
+    .admin-dashboard-page .portal-app-topbar {
+        width: 100%;
+        min-width: 0;
+        padding: 16px 14px;
+        gap: 14px;
+        box-sizing: border-box;
+    }
+
+    .admin-dashboard-page .portal-app-topbar > div:first-child,
+    .admin-dashboard-page .portal-topbar-meta,
+    .admin-dashboard-page .portal-dashboard-head,
+    .admin-dashboard-page .portal-dashboard-head > div {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+    }
+
+    .admin-dashboard-page .portal-topbar-meta {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto auto;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .admin-dashboard-page .portal-topbar-meta > span {
+        max-width: 100%;
+        white-space: normal;
+        overflow: visible;
+        text-overflow: clip;
+        overflow-wrap: anywhere;
+    }
+
+    .admin-dashboard-page .portal-profile-pill {
+        min-width: 0;
+        width: auto;
+        white-space: nowrap;
+    }
+
+    .admin-dashboard-page .portal-app-content {
+        padding: 18px 14px 42px;
+    }
+
+    .admin-dashboard-page .portal-dashboard-head {
+        align-items: flex-start;
+        gap: 16px;
+    }
+
+    .admin-dashboard-page .portal-dashboard-head h1,
+    .admin-dashboard-page .portal-dashboard-head.compact h1 {
+        max-width: 100%;
+        font-size: clamp(28px, 9vw, 40px);
+        line-height: 1.08;
+        overflow-wrap: break-word;
+        word-break: normal;
+    }
+
+    .admin-dashboard-page .portal-dashboard-head p,
+    .admin-dashboard-page .portal-card p,
+    .admin-dashboard-page .history-item span,
+    .admin-dashboard-page .history-item small,
+    .admin-dashboard-page .workflow-jobcard-intro span,
+    .admin-dashboard-page .workflow-jobcard-intro small {
+        max-width: 100%;
+        overflow-wrap: anywhere;
+    }
+
+    .admin-dashboard-page .portal-dashboard-head .btn-primary,
+    .admin-dashboard-page .portal-dashboard-head .btn-outline {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .admin-dashboard-page .portal-card {
+        padding: 18px;
+    }
+
+    .admin-dashboard-page .portal-metric-grid,
+    .admin-dashboard-page .portal-history-grid,
+    .admin-dashboard-page .portal-profile-grid,
+    .admin-dashboard-page .operations-two-column,
+    .admin-dashboard-page .support-queue-grid,
+    .admin-dashboard-page .support-client-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .admin-dashboard-page .portal-metric-card {
+        min-height: 112px;
+        padding: 18px;
+    }
+
+    .admin-dashboard-page .portal-chip-actions {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .admin-dashboard-page .portal-chip {
+        width: 100%;
+        text-align: left;
+        white-space: normal;
+        overflow-wrap: anywhere;
+    }
+
+    .admin-dashboard-page .profile-summary-list div {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .admin-dashboard-page .profile-summary-list strong {
+        text-align: left;
+    }
+}
+
+@media (min-width: 560px) and (max-width: 760px) {
+    .admin-dashboard-page .portal-sidebar-nav {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .admin-dashboard-page .portal-sidebar-footer {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 420px) {
+    .admin-dashboard-page .portal-topbar-meta {
+        grid-template-columns: 1fr auto;
+    }
+
+    .admin-dashboard-page .portal-topbar-meta > span {
+        grid-column: 1 / -1;
+    }
+}
+
+
+
+/* =========================================================
+   Admin Dashboard Mobile Hamburger Menu - v25
+   Converts the sidebar into a compact expandable menu on phones
+   while keeping all existing admin panel button actions unchanged.
+========================================================= */
+.portal-admin-sidebar-head {
+    display: block;
+}
+
+.portal-admin-menu-toggle {
+    display: none;
+}
+
+@media (max-width: 760px) {
+    .admin-dashboard-page .portal-sidebar {
+        gap: 0;
+    }
+
+    .admin-dashboard-page .portal-admin-sidebar-head {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 14px;
+    }
+
+    .admin-dashboard-page .portal-brand-compact {
+        flex: 1 1 auto;
+        min-width: 0;
+        padding: 0;
+    }
+
+    .admin-dashboard-page .portal-brand-compact > div {
+        min-width: 0;
+    }
+
+    .admin-dashboard-page .portal-admin-menu-toggle {
+        width: 54px;
+        height: 54px;
+        flex: 0 0 54px;
+        display: inline-grid;
+        place-content: center;
+        gap: 5px;
+        padding: 0;
+        border: 1px solid rgba(255,255,255,.16);
+        background: rgba(255,255,255,.05);
+        color: var(--text1);
+        cursor: pointer;
+        transition: border-color .25s ease, background .25s ease, transform .25s ease;
+    }
+
+    .admin-dashboard-page .portal-admin-menu-toggle:hover,
+    .admin-dashboard-page .portal-admin-menu-toggle:focus-visible {
+        border-color: rgba(32,96,216,.7);
+        background: linear-gradient(90deg, rgba(26,168,196,.22), rgba(32,96,216,.24));
+        outline: none;
+    }
+
+    .admin-dashboard-page .portal-admin-menu-toggle span {
+        width: 22px;
+        height: 2px;
+        display: block;
+        background: currentColor;
+        transition: transform .25s ease, opacity .25s ease;
+    }
+
+    .admin-dashboard-page .portal-sidebar.admin-mobile-menu-open .portal-admin-menu-toggle span:nth-child(1) {
+        transform: translateY(7px) rotate(45deg);
+    }
+
+    .admin-dashboard-page .portal-sidebar.admin-mobile-menu-open .portal-admin-menu-toggle span:nth-child(2) {
+        opacity: 0;
+    }
+
+    .admin-dashboard-page .portal-sidebar.admin-mobile-menu-open .portal-admin-menu-toggle span:nth-child(3) {
+        transform: translateY(-7px) rotate(-45deg);
+    }
+
+    .admin-dashboard-page .portal-sidebar-nav,
+    .admin-dashboard-page .portal-sidebar-footer {
+        display: none;
+    }
+
+    .admin-dashboard-page .portal-sidebar.admin-mobile-menu-open .portal-sidebar-nav {
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 10px;
+        margin-top: 16px;
+        padding: 16px 0 0;
+        border-top: 1px solid rgba(255,255,255,.1);
+        overflow: visible;
+    }
+
+    .admin-dashboard-page .portal-sidebar.admin-mobile-menu-open .portal-sidebar-footer {
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 12px;
+        margin-top: 14px;
+        padding-top: 0;
+    }
+
+    .admin-dashboard-page .portal-sidebar.admin-mobile-menu-open .portal-sidebar-nav button,
+    .admin-dashboard-page .portal-sidebar.admin-mobile-menu-open .portal-sidebar-footer a,
+    .admin-dashboard-page .portal-sidebar.admin-mobile-menu-open .portal-sidebar-footer button {
+        width: 100%;
+        min-width: 0;
+    }
+}
+
+@media (min-width: 561px) and (max-width: 760px) {
+    .admin-dashboard-page .portal-sidebar.admin-mobile-menu-open .portal-sidebar-nav {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .admin-dashboard-page .portal-sidebar.admin-mobile-menu-open .portal-sidebar-footer {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 420px) {
+    .admin-dashboard-page .portal-admin-sidebar-head {
+        align-items: flex-start;
+    }
+
+    .admin-dashboard-page .portal-admin-menu-toggle {
+        width: 50px;
+        height: 50px;
+        flex-basis: 50px;
+    }
+}

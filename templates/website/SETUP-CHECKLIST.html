@@ -1,0 +1,311 @@
+﻿<!doctype html>
+<html lang="en">
+
+<head>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <title>Conquer Computers Setup Checklist</title>
+   <style>
+      body {
+         font-family: Arial, sans-serif;
+         line-height: 1.65;
+         background: #f6f7fb;
+         color: #101828;
+         margin: 0
+      }
+
+      .wrap {
+         max-width: 980px;
+         margin: 30px auto;
+         background: #fff;
+         padding: 28px;
+         border: 1px solid #e5e7eb
+      }
+
+      pre {
+         white-space: pre-wrap;
+         background: #0b1220;
+         color: #e8eefc;
+         padding: 18px;
+         overflow: auto
+      }
+
+      h1 {
+         margin-top: 0
+      }
+   </style>
+</head>
+
+<body>
+   <main class="wrap">
+      <h1>Conquer Computers Setup Checklist</h1>
+      <pre>CONQUER COMPUTERS LLC - FINAL CPANEL SETUP CHECKLIST
+====================================================
+
+This package is updated for cPanel hosting and does NOT require Firebase Storage.
+Complaint attachments upload to cPanel through complaint-upload-handler.php.
+
+UPLOAD FIRST
+------------
+1. Take a backup of your existing public_html.
+2. Extract this ZIP.
+3. Upload the CONTENTS inside conquercomputers.com to public_html.
+4. Confirm these files exist:
+   - public_html/index.html
+   - public_html/lead-handler.php
+   - public_html/job-pdf-email-handler.php
+   - public_html/complaint-upload-handler.php
+   - public_html/private-config.sample.php
+   - public_html/static/js/script.js
+   - public_html/static/js/portal.js
+   - public_html/sitemap.xml
+   - public_html/robots.txt
+
+4. SETUP CPANEL EMAIL PROPERLY
+------------------------------
+Your lead form sends email to: info@conquercomputers.com
+
+In cPanel:
+1. Go to Email Accounts.
+2. Create/confirm info@conquercomputers.com.
+3. Send a normal test email from Gmail to info@conquercomputers.com.
+4. Open cPanel Webmail and confirm the message arrives.
+5. Go to Email Deliverability.
+6. Confirm SPF and DKIM are valid.
+
+If lead email does not arrive:
+- Check Webmail inbox and spam.
+- Check cPanel Email Deliverability.
+- Check hosting mail limits.
+- If PHP mail() is blocked, upgrade later to SMTP/PHPMailer.
+
+5. TEST PUBLIC LEAD FORM
+------------------------
+Open: https://www.conquercomputers.com
+Submit a test lead:
+- Name: Test Lead
+- Email: your Gmail
+- Phone: your UAE number
+- Service: IT AMC Services
+- Requirement: Testing website lead form
+
+Check:
+1. Company email received at info@conquercomputers.com.
+2. Customer auto-reply received in the test Gmail.
+3. Firestore &gt; leads collection has the new lead.
+4. WhatsApp opens with lead details.
+5. GA4 Realtime shows lead_form_submit.
+6. cPanel creates private-leads/leads-YYYY-MM.csv.
+
+Important: The updated flow sends to PHP/email/local backup first and saves to Firestore second.
+So even if Firestore rules fail, the lead can still be saved in cPanel and/or emailed.
+
+6. SETUP GA4 EVENTS AS KEY EVENTS
+---------------------------------
+Open Google Analytics:
+Admin &gt; Data display &gt; Events
+
+Submit one test lead and wait a few minutes.
+Mark these events as key events:
+- lead_form_submit
+- phone_click
+- whatsapp_click
+- get_quote_click
+
+Most important for ads:
+- lead_form_submit
+- phone_click
+- whatsapp_click
+
+7. CONNECT GA4 WITH GOOGLE ADS
+------------------------------
+Only do this after GA4 events are visible.
+
+Go to:
+GA4 &gt; Admin &gt; Product links &gt; Google Ads Links
+
+Then:
+1. Connect Google Ads account.
+2. In Google Ads, import GA4 key events.
+3. Do not run ads until conversions are imported.
+
+8. SETUP GOOGLE SHEET / CRM LEAD SAVING
+---------------------------------------
+Create a Google Sheet named: Conquer Computers Leads
+
+Recommended first sheet tab name: Leads
+
+Columns are automatically handled by google-apps-script-leads.js.
+
+Setup:
+1. Open the Google Sheet.
+2. Go to Extensions &gt; Apps Script.
+3. Copy code from google-apps-script-leads.js.
+4. Paste into Apps Script.
+5. Deploy &gt; New deployment &gt; Web app.
+6. Execute as: Me.
+7. Who has access: Anyone.
+8. Copy the Web App URL.
+9. Rename private-config.sample.php to private-config.php in cPanel.
+10. Add the URL here:
+
+   define('GOOGLE_SHEET_WEBHOOK_URL', 'PASTE_WEB_APP_URL_HERE');
+
+After this, leads can save to:
+- Email
+- Firestore
+- Local cPanel CSV backup
+- Google Sheet
+
+9. SETUP PRIVATE CRM VIEWER
+---------------------------
+The package includes: lead-crm.php
+
+In private-config.php set:
+
+define('CRM_SECRET_TOKEN', 'CHANGE_TO_A_STRONG_PRIVATE_TOKEN');
+
+Then open:
+https://www.conquercomputers.com/lead-crm.php?token=CHANGE_TO_A_STRONG_PRIVATE_TOKEN
+
+This viewer reads cPanel local lead backups from private-leads/*.csv.
+Do not share this URL publicly.
+
+10. SETUP PRIVATE BACKUP TOKEN
+------------------------------
+The package includes: cron-backup.php
+
+In private-config.php set:
+
+define('BACKUP_SECRET_TOKEN', 'CHANGE_TO_A_STRONG_BACKUP_TOKEN');
+
+Manual test:
+https://www.conquercomputers.com/cron-backup.php?token=CHANGE_TO_A_STRONG_BACKUP_TOKEN
+
+For daily cPanel cron:
+php -q /home/YOUR_CPANEL_USERNAME/public_html/cron-backup.php
+
+Replace YOUR_CPANEL_USERNAME with the real cPanel username.
+
+11. SETUP WHATSAPP API REPORT
+-----------------------------
+This is optional and disabled by default.
+Do this only after WhatsApp Cloud API is ready.
+
+In private-config.php set:
+
+define('WHATSAPP_CLOUD_API_TOKEN', 'PASTE_META_TOKEN_HERE');
+define('WHATSAPP_PHONE_NUMBER_ID', 'PASTE_PHONE_NUMBER_ID_HERE');
+define('WHATSAPP_REPORT_TO', '971543433553');
+
+Then run:
+https://www.conquercomputers.com/analytics-whatsapp-report.php
+
+Do not put Meta tokens in frontend JavaScript.
+
+12. CHECK SITEMAP AND ROBOTS.TXT
+--------------------------------
+Open:
+https://www.conquercomputers.com/sitemap.xml
+https://www.conquercomputers.com/robots.txt
+
+Then in Google Search Console:
+1. Open Sitemaps.
+2. Submit sitemap.xml.
+
+13. TEST ALL LANDING PAGES
+--------------------------
+Open and test:
+- https://www.conquercomputers.com/cctv-installation-dubai.html
+- https://www.conquercomputers.com/it-amc-services-dubai.html
+- https://www.conquercomputers.com/network-setup-dubai.html
+- https://www.conquercomputers.com/emergency-it-support-dubai.html
+- https://www.conquercomputers.com/website-design-dubai.html
+
+Check:
+- Call button works
+- WhatsApp button works
+- Get Quote scrolls to form
+- Lead form submits
+- Mobile layout is correct
+
+14. TEST PDF GENERATION
+-----------------------
+Login to the portal and test:
+1. Create job card.
+2. Save job card.
+3. Open saved job card.
+4. Download PDF.
+5. Print PDF.
+6. Send PDF by email.
+7. Save quotation.
+8. Save invoice.
+
+This package uses cPanel job-pdf-email-handler.php for PDF email.
+Firebase Cloud Functions are no longer required for PDF email.
+
+If PDF is blank:
+- Clear browser cache.
+- Make sure html2pdf script loads.
+- Make sure static/js/portal.js?v=23 loads.
+- Check Inspect &gt; Console.
+- Check mixed HTTP/HTTPS warnings.
+
+15. FINAL MOBILE TESTING
+------------------------
+Test using Chrome Inspect:
+- 360px
+- 390px
+- 414px
+- 768px
+- 1024px
+- 1366px
+- 1920px
+
+Check:
+- Sticky Call / WhatsApp bar
+- Package buttons
+- Header phone click
+- Lead form
+- Complaint upload
+- Job card PDF preview
+- Landing pages
+- Blog pages
+- Floating WhatsApp button
+
+OPTIONAL SETUP HEALTH CHECK
+---------------------------
+1. Rename private-config.sample.php to private-config.php.
+2. Set:
+   define('SETUP_TEST_TOKEN', 'CHANGE_TO_A_PRIVATE_SETUP_TOKEN');
+3. Open:
+   https://www.conquercomputers.com/setup-health-check.php?token=CHANGE_TO_A_PRIVATE_SETUP_TOKEN
+
+After setup, remove the token or set it back to empty.
+
+CORRECT SETUP ORDER
+-------------------
+1. Upload files to public_html.
+2. Paste Firestore rules from FIREBASE-RULES.txt.
+3. Do NOT setup Firebase Storage for this package.
+4. Confirm cPanel email works.
+5. Submit one public lead.
+6. Check email, auto-reply, Firestore, WhatsApp, local CSV.
+7. Check GA4 Realtime event.
+8. Mark GA4 events as key events.
+9. Submit sitemap in Search Console.
+10. Setup Google Sheet webhook.
+11. Setup CRM token.
+12. Setup backup token / cron.
+13. Setup WhatsApp API only after Meta API is ready.
+14. Test PDF, quotation, invoice.
+15. Final mobile test.
+</pre>
+   </main>
+   <!-- Added in v22: workflow-notification-handler.php, AMC, inventory, audit logs, admin job intake -->
+</body>
+
+</html>
+
+
+

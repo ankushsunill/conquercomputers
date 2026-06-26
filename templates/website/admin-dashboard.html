@@ -1,0 +1,846 @@
+﻿<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script>
+        (function () {
+            try {
+                var savedTheme = localStorage.getItem('conquer-theme');
+                if (savedTheme === 'light' || savedTheme === 'dark') {
+                    document.documentElement.setAttribute('data-theme', savedTheme);
+                }
+            } catch (error) {
+                // Keep the default theme when browser storage is unavailable.
+            }
+        })();
+    </script>
+
+    <title>Admin Dashboard | Conquer Computers LLC</title>
+    <meta name="description" content="Conquer Computers LLC internal admin dashboard.">
+    <link rel="canonical" href="https://www.conquercomputers.com/admin-dashboard.html">
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="manifest" href="/manifest.webmanifest">
+    <meta name="theme-color" content="#07090c">
+    <link rel="apple-touch-icon" href="/images/pwa/icon-192.png">
+    <link rel="icon" href="images/logo.png" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="static/css/style.css?v=23">
+    <link rel="stylesheet" href="static/css/portal.css?v=25">
+</head>
+
+<body class="portal-app-page admin-dashboard-page" data-page="admin-dashboard" data-portal-view="admin">
+    <div id="portalGate" class="portal-access-gate">Checking secure admin accessâ€¦</div>
+    <div id="adminAppShell" class="portal-app-shell" style="display:none;">
+        <aside class="portal-sidebar">
+
+            <div class="portal-admin-sidebar-head">
+                <div class="portal-brand portal-brand-compact">
+                    <img src="images/logo.png" alt="Conquer Computers LLC">
+                    <div>
+                        <strong>CONQUER</strong>
+                        <span>COMPUTERS LLC</span>
+                    </div>
+                </div>
+                <button id="adminMobileMenuToggle" class="portal-admin-menu-toggle" type="button"
+                    aria-label="Open admin dashboard menu" aria-controls="adminDashboardSidebarNav"
+                    aria-expanded="false" onclick="toggleAdminMobileMenu(event); return false;">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+            <nav id="adminDashboardSidebarNav" class="portal-sidebar-nav" aria-label="Admin dashboard sections">
+                <button class="active" data-admin-nav="overview" type="button"
+                    onclick="switchAdminWorkspacePanel('overview'); return false;">Overview</button>
+                <button data-admin-nav="create-job" type="button"
+                    onclick="switchAdminWorkspacePanel('create-job'); populateAdminCreateStaffSelect(); return false;">Create
+                    Job Card</button>
+                <button data-admin-nav="users" type="button"
+                    onclick="switchAdminWorkspacePanel('users'); return false;">Users & Staff</button>
+                <button data-admin-nav="workflow" type="button"
+                    onclick="switchAdminWorkspacePanel('workflow'); return false;">Job Workflow</button>
+                <button data-admin-nav="support" type="button"
+                    onclick="switchAdminWorkspacePanel('support'); loadAdminSupportQueues(); return false;">Delivery &
+                    Complaints</button>
+                <button data-admin-nav="finance" type="button"
+                    onclick="switchAdminWorkspacePanel('finance'); return false;">Quotations & Invoices</button>
+                <button data-admin-nav="amc" type="button"
+                    onclick="switchAdminWorkspacePanel('amc'); loadAdminAmcContracts(); return false;">AMC
+                    Contracts</button>
+                <button data-admin-nav="inventory" type="button"
+                    onclick="switchAdminWorkspacePanel('inventory'); loadAdminInventoryItems(); return false;">Inventory
+                    & Parts</button>
+                <button data-admin-nav="history" type="button"
+                    onclick="switchAdminWorkspacePanel('history'); return false;">Customer / Device History</button>
+                <button data-admin-nav="reports" type="button"
+                    onclick="switchAdminWorkspacePanel('reports'); loadAdminReportsAndAudit(); return false;">Reports &
+                    Audit</button>
+                <button data-admin-nav="profile" type="button"
+                    onclick="switchAdminWorkspacePanel('profile'); return false;">Profile & Password</button>
+            </nav>
+            <div class="portal-sidebar-footer">
+                <a class="btn-outline" href="index.html">Website</a>
+                <button class="btn-primary" type="button"
+                    onclick="logoutUser(event); return false;"><span>Logout</span></button>
+            </div>
+        </aside>
+        <section class="portal-app-stage">
+            <header class="portal-app-topbar">
+                <div><span>Internal Admin Workspace</span><strong id="dashboardProfileName">Admin</strong></div>
+                <div class="portal-topbar-meta"><span id="dashboardProfileEmail">â€”</span><button type="button"
+                        class="portal-profile-pill" data-admin-switch="profile"
+                        onclick="switchAdminWorkspacePanel('profile'); return false;">Profile</button><button
+                        class="theme-toggle-btn portal-theme-toggle" type="button"
+                        onclick="toggleTheme(); return false;" title="Toggle light / dark theme"
+                        aria-label="Toggle light / dark theme"><span class="icon-sun">â˜€ï¸</span><span
+                            class="icon-moon">ðŸŒ™</span></button></div>
+            </header>
+            <main id="adminDashboard" class="portal-app-content portal-admin-dashboard" style="display:block;">
+
+                <section class="portal-workspace-panel active" data-admin-panel="overview">
+                    <div class="portal-dashboard-head">
+                        <div>
+                            <span class="portal-kicker">Phase 1 Operations Overview</span>
+                            <h1>Admin Dashboard</h1>
+                            <p>Monitor approvals, job-card workflow, staff assignment, quotations, invoices, and
+                                customer/device history from one full-screen workspace.</p>
+                        </div>
+                        <button class="btn-primary" type="button"
+                            onclick="refreshAdminDashboard(event); return false;"><span>Refresh
+                                Dashboard</span></button>
+                    </div>
+                    <div id="adminOverviewMetrics" class="portal-metric-grid">
+                        <article class="portal-metric-card"><span>Total Users</span><strong
+                                id="metricTotalUsers">â€”</strong></article>
+                        <article class="portal-metric-card"><span>Pending Approvals</span><strong
+                                id="metricPendingUsers">â€”</strong></article>
+                        <article class="portal-metric-card"><span>Open Job Cards</span><strong
+                                id="metricOpenJobCards">â€”</strong></article>
+                        <article class="portal-metric-card"><span>Quotations</span><strong
+                                id="metricQuotations">â€”</strong></article>
+                        <article class="portal-metric-card"><span>Invoices</span><strong id="metricInvoices">â€”</strong>
+                        </article>
+                        <article class="portal-metric-card"><span>Active Staff</span><strong id="metricStaff">â€”</strong>
+                        </article>
+                        <article class="portal-metric-card"><span>SLA Overdue</span><strong
+                                id="metricOverdueJobs">â€”</strong></article>
+                        <article class="portal-metric-card"><span>Open Complaints</span><strong
+                                id="metricOpenComplaints">â€”</strong></article>
+                        <article class="portal-metric-card"><span>AMC Expiring</span><strong
+                                id="metricExpiringAmc">â€”</strong></article>
+                        <article class="portal-metric-card"><span>Low Stock Items</span><strong
+                                id="metricLowStock">â€”</strong></article>
+                    </div>
+                    <div class="portal-card portal-quick-actions">
+                        <h3>Quick Actions</h3>
+                        <div class="portal-chip-actions">
+                            <button class="portal-chip" type="button" data-admin-switch="create-job"
+                                onclick="switchAdminWorkspacePanel('create-job'); populateAdminCreateStaffSelect(); return false;">Create
+                                Admin Job Card</button>
+                            <button class="portal-chip" type="button" data-admin-switch="users"
+                                onclick="switchAdminWorkspacePanel('users'); return false;">Review Account
+                                Requests</button>
+                            <button class="portal-chip" type="button" data-admin-switch="workflow"
+                                onclick="switchAdminWorkspacePanel('workflow'); return false;">Assign Job Cards</button>
+                            <button class="portal-chip" type="button" data-admin-switch="support"
+                                onclick="switchAdminWorkspacePanel('support'); loadAdminSupportQueues(); return false;">Review
+                                Tickets & Delivery</button>
+                            <button class="portal-chip" type="button" data-admin-switch="finance"
+                                onclick="switchAdminWorkspacePanel('finance'); return false;">Create Quotation /
+                                Invoice</button>
+                            <button class="portal-chip" type="button" data-admin-switch="history"
+                                onclick="switchAdminWorkspacePanel('history'); return false;">Open Customer
+                                History</button>
+                        </div>
+                    </div>
+                </section>
+
+
+                <section class="portal-workspace-panel" data-admin-panel="create-job">
+                    <div class="portal-dashboard-head compact">
+                        <div><span class="portal-kicker">Admin Intake</span>
+                            <h1>Create Job Card</h1>
+                            <p>Create a walk-in, phone, WhatsApp, or existing-client job card, assign staff immediately,
+                                and include scheduling/SLA details.</p>
+                        </div>
+                        <button class="btn-outline" type="button"
+                            onclick="resetAdminCreateJobCardForm(); populateAdminCreateStaffSelect(); return false;">Clear
+                            Form</button>
+                    </div>
+                    <form class="portal-card admin-create-job-form" id="adminJobCardCreateForm"
+                        onsubmit="adminCreateJobCard(event)">
+                        <div class="portal-subheading">Customer & Ownership</div>
+                        <div class="form-grid">
+                            <label class="form-field" for="adminJobOwnerEmail"><span>Portal Owner Email
+                                    <em>(optional)</em></span><input id="adminJobOwnerEmail" type="email"
+                                    placeholder="Link to an existing active client account"></label>
+                            <label class="form-field" for="adminJobCustomerName"><span>Customer Name</span><input
+                                    id="adminJobCustomerName" type="text" required
+                                    placeholder="Customer full name"></label>
+                            <label class="form-field" for="adminJobCustomerEmail"><span>Customer Email</span><input
+                                    id="adminJobCustomerEmail" type="email" placeholder="customer@example.com"></label>
+                            <label class="form-field" for="adminJobPhone"><span>Phone</span><input id="adminJobPhone"
+                                    type="text" placeholder="Customer phone"></label>
+                            <label class="form-field" for="adminJobCompany"><span>Company</span><input
+                                    id="adminJobCompany" type="text" placeholder="Company name"></label>
+                            <label class="form-field" for="adminJobCustomerId"><span>Customer ID</span><input
+                                    id="adminJobCustomerId" type="text"
+                                    placeholder="Optional internal customer ID"></label>
+                        </div>
+                        <label class="form-field" for="adminJobAddress"><span>Invoice / Shipping Address</span><textarea
+                                id="adminJobAddress" required
+                                placeholder="Complete customer address"></textarea></label>
+                        <label class="form-field" for="adminJobDescription"><span>Job Description / Work
+                                Details</span><textarea id="adminJobDescription" required
+                                placeholder="Issue, work scope, service notes, or complaint summary"></textarea></label>
+                        <div class="portal-subheading">Workflow, Assignment & Schedule</div>
+                        <div class="form-grid admin-schedule-grid">
+                            <label class="form-field" for="adminJobOrderDate"><span>Order Date</span><input
+                                    id="adminJobOrderDate" type="date" required></label>
+                            <label class="form-field" for="adminJobDueDate"><span>Expected Completion</span><input
+                                    id="adminJobDueDate" type="date"></label>
+                            <label class="form-field" for="adminJobVisitDate"><span>Visit Date</span><input
+                                    id="adminJobVisitDate" type="date"></label>
+                            <label class="form-field" for="adminJobVisitTime"><span>Visit Time</span><input
+                                    id="adminJobVisitTime" type="time"></label>
+                            <label class="form-field" for="adminJobPriority"><span>Priority</span><select
+                                    id="adminJobPriority">
+                                    <option value="Normal">Normal</option>
+                                    <option value="Low">Low</option>
+                                    <option value="High">High</option>
+                                    <option value="Urgent">Urgent</option>
+                                </select></label>
+                            <label class="form-field" for="adminJobStatus"><span>Status</span><select
+                                    id="adminJobStatus">
+                                    <option value="New">New</option>
+                                    <option value="Assigned">Assigned</option>
+                                    <option value="In Progress">In Progress</option>
+                                    <option value="Waiting for Parts">Waiting for Parts</option>
+                                    <option value="Completed">Completed</option>
+                                    <option value="Delivered">Delivered</option>
+                                    <option value="Closed">Closed</option>
+                                </select></label>
+                            <label class="form-field" for="adminJobAssignedStaff"><span>Assigned Staff</span><select
+                                    id="adminJobAssignedStaff">
+                                    <option value="">Unassigned</option>
+                                </select></label>
+                            <label class="form-field" for="adminJobSource"><span>Lead Source</span><select
+                                    id="adminJobSource">
+                                    <option value="Admin">Admin Entry</option>
+                                    <option value="Walk-in">Walk-in</option>
+                                    <option value="Phone">Phone</option>
+                                    <option value="WhatsApp">WhatsApp</option>
+                                    <option value="Website Lead">Website Lead</option>
+                                    <option value="AMC">AMC</option>
+                                </select></label>
+                            <label class="form-field" for="adminJobSlaResponseBy"><span>SLA Response By</span><input
+                                    id="adminJobSlaResponseBy" type="datetime-local"></label>
+                            <label class="form-field" for="adminJobSlaResolveBy"><span>SLA Resolve By</span><input
+                                    id="adminJobSlaResolveBy" type="datetime-local"></label>
+                        </div>
+                        <div class="portal-subheading">Device & Parts</div>
+                        <div class="form-grid device-history-grid">
+                            <label class="form-field" for="adminJobDeviceType"><span>Device Type</span><input
+                                    id="adminJobDeviceType" type="text"
+                                    placeholder="Laptop, CCTV, Printer, Network"></label>
+                            <label class="form-field" for="adminJobDeviceBrand"><span>Brand</span><input
+                                    id="adminJobDeviceBrand" type="text" placeholder="Brand"></label>
+                            <label class="form-field" for="adminJobDeviceModel"><span>Model</span><input
+                                    id="adminJobDeviceModel" type="text" placeholder="Model"></label>
+                            <label class="form-field" for="adminJobDeviceSerial"><span>Serial / Asset No.</span><input
+                                    id="adminJobDeviceSerial" type="text" placeholder="Serial or asset number"></label>
+                        </div>
+                        <label class="form-field" for="adminJobPartsUsed"><span>Parts / Materials
+                                Expected</span><textarea id="adminJobPartsUsed"
+                                placeholder="Optional spare parts or consumables to prepare"></textarea></label>
+                        <div class="auth-actions">
+                            <button class="btn-primary" type="submit"><span>Create Job Card</span></button>
+                            <button class="btn-outline" type="button"
+                                onclick="resetAdminCreateJobCardForm(); return false;">Reset</button>
+                        </div>
+                        <div id="adminCreateJobCardMessage" class="portal-message" aria-live="polite"></div>
+                    </form>
+                </section>
+
+                <section class="portal-workspace-panel" data-admin-panel="users">
+                    <div class="portal-dashboard-head compact">
+                        <div><span class="portal-kicker">Users & Staff</span>
+                            <h1>Account Approvals</h1>
+                            <p>Approve, block, and assign client, staff, or admin roles.</p>
+                        </div>
+                        <button class="btn-outline" type="button" onclick="loadAdminUsers(); return false;">Refresh
+                            Users</button>
+                    </div>
+                    <div class="portal-card">
+                        <div class="portal-top admin-top">
+                            <div>
+                                <div class="section-tag">
+                                    <span class="section-tag-text">Admin Dashboard</span>
+                                </div>
+                                <h2 class="section-title">Registered <strong>Users</strong></h2>
+                                <p>Admin-only access: review account status and roles, open all job cards, and convert
+                                    approved work into quotations or tax invoices.</p>
+                            </div>
+                            <button class="btn-outline" onclick="logoutUser(event); return false;"
+                                type="button">Logout</button>
+                        </div>
+                        <div class="portal-message" id="adminUsersSummary"></div>
+                        <div aria-live="polite" class="admin-user-list" id="adminUserList"></div>
+                    </div>
+                </section>
+
+                <section class="portal-workspace-panel" data-admin-panel="workflow">
+                    <div class="portal-dashboard-head compact">
+                        <div><span class="portal-kicker">Job Card Workflow</span>
+                            <h1>Status & Staff Assignment</h1>
+                            <p>Move jobs through the Phase 1 workflow and assign active staff members.</p>
+                        </div>
+                        <button class="btn-outline" type="button"
+                            onclick="loadAdminWorkflowJobCards(); return false;">Refresh Workflow</button>
+                    </div>
+                    <div class="portal-card">
+                        <div id="adminWorkflowSummary" class="portal-message"></div>
+                        <div id="adminWorkflowJobCardList" class="workflow-jobcard-list" aria-live="polite"></div>
+                    </div>
+                </section>
+
+
+                <section class="portal-workspace-panel" data-admin-panel="support">
+                    <div class="portal-dashboard-head compact">
+                        <div><span class="portal-kicker">Support Operations</span>
+                            <h1>Delivery Notes & Complaints</h1>
+                            <p>Review customer tickets, update status, create job cards from complaints, and monitor
+                                delivery requests.</p>
+                        </div>
+                        <button class="btn-outline" type="button"
+                            onclick="loadAdminSupportQueues(); return false;">Refresh Queues</button>
+                    </div>
+                    <div class="portal-grid support-queue-grid">
+                        <div class="portal-card">
+                            <h3>Complaints / Tickets</h3>
+                            <div id="adminComplaintSummary" class="portal-message"></div>
+                            <div id="adminComplaintList" class="support-admin-list" aria-live="polite"></div>
+                        </div>
+                        <div class="portal-card">
+                            <h3>Delivery Notes</h3>
+                            <div id="adminDeliverySummary" class="portal-message"></div>
+                            <div id="adminDeliveryList" class="support-admin-list" aria-live="polite"></div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="portal-workspace-panel" data-admin-panel="finance">
+                    <div class="portal-dashboard-head compact">
+                        <div><span class="portal-kicker">Quotation & Invoice</span>
+                            <h1>Billing Workspace</h1>
+                            <p>Convert job cards to quotations or invoices and send generated PDFs to customers.</p>
+                        </div>
+                        <button class="btn-outline" type="button"
+                            onclick="loadAdminJobCards(); loadFinancialDocuments('quotation'); loadFinancialDocuments('invoice'); return false;">Refresh
+                            Finance</button>
+                    </div>
+                    <div class="portal-card admin-finance-workspace">
+                        <div class="portal-top admin-top">
+                            <div>
+                                <div class="section-tag">
+                                    <span class="section-tag-text">Quotation &amp; Invoice Workspace</span>
+                                </div>
+                                <h2 class="section-title">Convert <strong>Job Cards</strong></h2>
+                                <p>Select any saved job card, prepare a quotation or tax invoice, keep the same PDF
+                                    visual style, then download, print, or email the PDF to the customer.</p>
+                            </div>
+                            <button class="btn-outline" onclick="loadAdminJobCards(); return false;"
+                                type="button">Refresh Job Cards</button>
+                        </div>
+                        <div class="portal-grid admin-finance-grid">
+                            <div class="portal-card nested-card">
+                                <h3>All Job Cards</h3>
+                                <p>Admin can access job cards created by staff and users. Click a record to prepare a
+                                    quotation or invoice.</p>
+                                <div class="portal-message" id="adminJobCardSummary"></div>
+                                <div aria-live="polite" class="saved-list admin-record-list" id="adminJobCardList">
+                                </div>
+                            </div>
+                            <form class="portal-card nested-card" id="financialDocumentForm"
+                                onsubmit="saveFinancialDocument(event)">
+                                <h3>Create / Update Quotation or Invoice</h3>
+                                <div class="form-grid">
+                                    <label class="form-field" for="financialSourceJobCardId">
+                                        <span>Source Job Card</span>
+                                        <input id="financialSourceJobCardId" placeholder="Select a job card" readonly=""
+                                            type="text" />
+                                    </label>
+                                    <label class="form-field" for="financialDocumentType">
+                                        <span>Document Type</span>
+                                        <select id="financialDocumentType" required="">
+                                            <option value="quotation">Quotation</option>
+                                            <option value="invoice">Tax Invoice</option>
+                                        </select>
+                                    </label>
+                                    <label class="form-field" for="financialApprovalStatus">
+                                        <span>Approval / Billing Status</span>
+                                        <select id="financialApprovalStatus">
+                                            <option value="Draft">Draft</option>
+                                            <option value="Sent">Sent</option>
+                                            <option value="Approved">Approved</option>
+                                            <option value="Rejected">Rejected</option>
+                                            <option value="Converted">Converted</option>
+                                            <option value="Paid">Paid</option>
+                                        </select>
+                                    </label>
+                                    <label class="form-field" for="financialDocumentNumber">
+                                        <span>Document Number</span>
+                                        <input id="financialDocumentNumber" placeholder="Auto generated or editable"
+                                            required="" type="text" />
+                                    </label>
+                                    <label class="form-field" for="financialDocumentDate">
+                                        <span>Date</span>
+                                        <input id="financialDocumentDate" required="" type="date" />
+                                    </label>
+                                    <label class="form-field" for="financialCustomerName">
+                                        <span>Customer Name</span>
+                                        <input id="financialCustomerName" placeholder="Enter customer name" required=""
+                                            type="text" />
+                                    </label>
+                                    <label class="form-field" for="financialCustomerEmail">
+                                        <span>Customer Email</span>
+                                        <input id="financialCustomerEmail" placeholder="customer@example.com"
+                                            type="email" />
+                                    </label>
+                                    <label class="form-field" for="financialCompany">
+                                        <span>Company Name</span>
+                                        <input id="financialCompany" placeholder="Enter company name" type="text" />
+                                    </label>
+                                    <label class="form-field" for="financialQuantity">
+                                        <span>Hrs / Qty</span>
+                                        <input id="financialQuantity" min="0" required="" step="0.01" type="number"
+                                            value="1" />
+                                    </label>
+                                    <label class="form-field" for="financialRate">
+                                        <span>Rate</span>
+                                        <input id="financialRate" min="0" required="" step="0.01" type="number"
+                                            value="0" />
+                                    </label>
+                                    <label class="form-field" for="financialVatPercent">
+                                        <span>VAT %</span>
+                                        <input id="financialVatPercent" min="0" required="" step="0.01" type="number"
+                                            value="5" />
+                                    </label>
+                                </div>
+                                <label class="form-field" for="financialAddress">
+                                    <span>Customer Address</span>
+                                    <textarea id="financialAddress" placeholder="Enter customer or company address"
+                                        required=""></textarea>
+                                </label>
+                                <label class="form-field" for="financialDescription">
+                                    <span>Description</span>
+                                    <textarea id="financialDescription"
+                                        placeholder="Service / item description copied from the job card"
+                                        required=""></textarea>
+                                </label>
+                                <label class="form-field" for="financialAdditionalNote">
+                                    <span>Additional Note</span>
+                                    <textarea id="financialAdditionalNote"
+                                        placeholder="Optional date, reference, warranty note, or customer request"></textarea>
+                                </label>
+                                <div aria-live="polite" class="financial-totals-preview">
+                                    <span>Amount: <strong id="financialAmountPreview">AED0.00</strong></span>
+                                    <span>VAT: <strong id="financialVatPreview">AED0.00</strong></span>
+                                    <span>Total: <strong id="financialTotalPreview">AED0.00</strong></span>
+                                </div>
+                                <div class="auth-actions">
+                                    <button class="btn-primary" type="submit"><span>Save Document</span></button>
+                                    <button class="btn-outline"
+                                        onclick="prepareNewFinancialDocumentNumber(); return false;"
+                                        type="button">Generate New Number</button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="portal-grid financial-saved-grid">
+                            <div class="portal-card nested-card">
+                                <h3>Saved Quotations</h3>
+                                <div aria-live="polite" class="saved-list admin-record-list" id="quotationList"></div>
+                            </div>
+                            <div class="portal-card nested-card">
+                                <h3>Saved Invoices</h3>
+                                <div aria-live="polite" class="saved-list admin-record-list" id="invoiceList"></div>
+                            </div>
+                        </div>
+                        <div class="portal-card pdf-area financial-pdf-area">
+                            <div class="pdf-actions">
+                                <h3>Quotation / Invoice PDF Preview</h3>
+                                <div>
+                                    <button class="btn-outline" onclick="downloadFinancialPDF(event); return false;"
+                                        type="button">Download PDF</button>
+                                    <button class="btn-outline" onclick="printFinancialPDF(event); return false;"
+                                        type="button">Print</button>
+                                    <button class="btn-primary" onclick="sendFinancialPDFEmail(event); return false;"
+                                        type="button"><span>Send PDF Email</span></button>
+                                </div>
+                            </div>
+                            <div class="financial-paper" id="financialDocumentPDF">
+                                <div class="financial-top-band">
+                                    <span class="financial-corner financial-corner-left"></span>
+                                    <span class="financial-corner financial-corner-right"></span>
+                                </div>
+                                <div class="financial-header">
+                                    <div class="financial-logo"><img alt="Conquer Computers LLC"
+                                            src="images/logo.png" /></div>
+                                    <div class="financial-company">
+                                        <h2>CONQUER COMPUTERS LLC</h2>
+                                        <p>P.O.Box : 15425 Dubai. AE</p>
+                                        <p>Mob:+971 5434 3353</p>
+                                        <p>Email: admin@conquercomputers.com</p>
+                                    </div>
+                                    <h3 id="financialPdfTitle">QUOTATION</h3>
+                                </div>
+                                <div class="financial-client-row">
+                                    <div class="financial-to">
+                                        <h4>To.</h4>
+                                        <p id="financialPdfCustomerName">Customer Name</p>
+                                        <p id="financialPdfCompany">Company Name</p>
+                                        <p id="financialPdfAddress">Customer Address</p>
+                                    </div>
+                                    <div class="financial-meta">
+                                        <div><span>No:</span><strong id="financialPdfNumber">CQQ-000000</strong></div>
+                                        <div><span>Date:</span><strong id="financialPdfDate">--/--/----</strong></div>
+                                    </div>
+                                </div>
+                                <div class="financial-pill-row">
+                                    <span>TRUSTED QUALITY &amp; SERVICES</span>
+                                    <span>TRN 10049985800003</span>
+                                </div>
+                                <table aria-label="Quotation or invoice details" class="financial-table">
+                                    <thead>
+                                        <tr>
+                                            <th>S No</th>
+                                            <th>Description</th>
+                                            <th>Hrs/Qty</th>
+                                            <th>Rate</th>
+                                            <th>Amount</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td id="financialPdfDescription">Service description</td>
+                                            <td id="financialPdfQuantity">1</td>
+                                            <td id="financialPdfRate">0.00</td>
+                                            <td id="financialPdfAmount">0.00</td>
+                                        </tr>
+                                        <tr class="financial-note-row">
+                                            <td></td>
+                                            <td id="financialPdfAdditionalNote">Job card reference / note</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr class="financial-tax-row">
+                                            <td></td>
+                                            <td>Sales Tax TRN 10049985800003</td>
+                                            <td></td>
+                                            <td id="financialPdfVatPercent">5.00%</td>
+                                            <td id="financialPdfVatAmount">0.00</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div class="financial-bottom-row">
+                                    <div class="financial-bank">
+                                        <div class="financial-bank-rule"></div>
+                                        <p>Current Account 370841539501</p>
+                                        <p>IBAN AE13 040 037 0843 1539 501</p>
+                                        <p>Emirates Islamic Bank - Dubai-UAE</p>
+                                        <p>* Goods once sold will not be Returned</p>
+                                        <p>* Warranty as per Manufacturer's Terms and Conditions</p>
+                                    </div>
+                                    <div class="financial-total-sign">
+                                        <div class="financial-total-line"><span>Total</span><strong
+                                                id="financialPdfTotal">AED0.00</strong></div>
+                                        <div class="financial-signature">
+                                            <div class="financial-stamp-placeholder">Authorised Stamp / Signature</div>
+                                            <em>For Conquer Computers LLC</em>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="financial-footer">
+                                    <p>Thanking you for the patronage of our company, I remain.</p>
+                                    <p>www.conquercomputers.com</p>
+                                </div>
+                                <div class="financial-bottom-band">
+                                    <span class="financial-corner financial-corner-left"></span>
+                                    <span class="financial-corner financial-corner-right"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+
+                <section class="portal-workspace-panel" data-admin-panel="amc">
+                    <div class="portal-dashboard-head compact">
+                        <div><span class="portal-kicker">Recurring Service</span>
+                            <h1>AMC Contract Management</h1>
+                            <p>Store contract validity, visits, renewal windows, and SLA notes for AMC clients.</p>
+                        </div>
+                        <button class="btn-outline" type="button"
+                            onclick="loadAdminAmcContracts(); return false;">Refresh AMC</button>
+                    </div>
+                    <div class="portal-grid operations-two-column">
+                        <form class="portal-card" id="adminAmcForm" onsubmit="saveAdminAmcContract(event)">
+                            <h3>Create / Update AMC Contract</h3>
+                            <input id="adminAmcRecordId" type="hidden">
+                            <div class="form-grid">
+                                <label class="form-field" for="adminAmcCompany"><span>Company / Client</span><input
+                                        id="adminAmcCompany" type="text" required></label>
+                                <label class="form-field" for="adminAmcContact"><span>Contact Person</span><input
+                                        id="adminAmcContact" type="text"></label>
+                                <label class="form-field" for="adminAmcEmail"><span>Email</span><input
+                                        id="adminAmcEmail" type="email"></label>
+                                <label class="form-field" for="adminAmcPhone"><span>Phone</span><input
+                                        id="adminAmcPhone" type="text"></label>
+                                <label class="form-field" for="adminAmcPlan"><span>Plan</span><select id="adminAmcPlan">
+                                        <option value="Basic">Basic</option>
+                                        <option value="Standard">Standard</option>
+                                        <option value="Premium">Premium</option>
+                                        <option value="Custom">Custom</option>
+                                    </select></label>
+                                <label class="form-field" for="adminAmcVisits"><span>Visits / Month</span><input
+                                        id="adminAmcVisits" type="number" min="0" step="1" value="1"></label>
+                                <label class="form-field" for="adminAmcStart"><span>Start Date</span><input
+                                        id="adminAmcStart" type="date" required></label>
+                                <label class="form-field" for="adminAmcEnd"><span>End / Renewal Date</span><input
+                                        id="adminAmcEnd" type="date" required></label>
+                            </div>
+                            <label class="form-field" for="adminAmcCoverage"><span>Covered Assets /
+                                    Scope</span><textarea id="adminAmcCoverage"
+                                    placeholder="Computers, printers, servers, network, CCTV, etc."></textarea></label>
+                            <label class="form-field" for="adminAmcNotes"><span>SLA / Renewal Notes</span><textarea
+                                    id="adminAmcNotes"
+                                    placeholder="Service response, exclusions, renewal reminders"></textarea></label>
+                            <div class="auth-actions"><button class="btn-primary" type="submit"><span>Save AMC
+                                        Contract</span></button><button class="btn-outline" type="button"
+                                    onclick="resetAdminAmcForm(); return false;">Reset</button></div>
+                            <div id="adminAmcMessage" class="portal-message" aria-live="polite"></div>
+                        </form>
+                        <div class="portal-card">
+                            <h3>Saved AMC Contracts</h3>
+                            <div id="adminAmcSummary" class="portal-message"></div>
+                            <div id="adminAmcList" class="operations-record-list" aria-live="polite"></div>
+                        </div>
+                    </div>
+                </section>
+                <section class="portal-workspace-panel" data-admin-panel="inventory">
+                    <div class="portal-dashboard-head compact">
+                        <div><span class="portal-kicker">Stock Control</span>
+                            <h1>Inventory & Spare Parts</h1>
+                            <p>Maintain reusable parts, reorder levels, and low-stock alerts used for service
+                                preparation.</p>
+                        </div>
+                        <button class="btn-outline" type="button"
+                            onclick="loadAdminInventoryItems(); return false;">Refresh Inventory</button>
+                    </div>
+                    <div class="portal-grid operations-two-column">
+                        <form class="portal-card" id="adminInventoryForm" onsubmit="saveAdminInventoryItem(event)">
+                            <h3>Create / Update Inventory Item</h3>
+                            <input id="adminInventoryRecordId" type="hidden">
+                            <div class="form-grid">
+                                <label class="form-field" for="adminInventorySku"><span>SKU / Code</span><input
+                                        id="adminInventorySku" type="text" required></label>
+                                <label class="form-field" for="adminInventoryName"><span>Item Name</span><input
+                                        id="adminInventoryName" type="text" required></label>
+                                <label class="form-field" for="adminInventoryCategory"><span>Category</span><input
+                                        id="adminInventoryCategory" type="text"
+                                        placeholder="Cables, CCTV, Storage, etc."></label>
+                                <label class="form-field" for="adminInventoryQty"><span>Quantity</span><input
+                                        id="adminInventoryQty" type="number" min="0" step="1" value="0"
+                                        required></label>
+                                <label class="form-field" for="adminInventoryReorder"><span>Reorder Level</span><input
+                                        id="adminInventoryReorder" type="number" min="0" step="1" value="0"></label>
+                                <label class="form-field" for="adminInventoryCost"><span>Unit Cost</span><input
+                                        id="adminInventoryCost" type="number" min="0" step="0.01" value="0"></label>
+                                <label class="form-field" for="adminInventorySell"><span>Selling Price</span><input
+                                        id="adminInventorySell" type="number" min="0" step="0.01" value="0"></label>
+                            </div>
+                            <label class="form-field" for="adminInventoryNotes"><span>Notes</span><textarea
+                                    id="adminInventoryNotes"
+                                    placeholder="Supplier, shelf location, compatibility, etc."></textarea></label>
+                            <div class="auth-actions"><button class="btn-primary" type="submit"><span>Save Inventory
+                                        Item</span></button><button class="btn-outline" type="button"
+                                    onclick="resetAdminInventoryForm(); return false;">Reset</button></div>
+                            <div id="adminInventoryMessage" class="portal-message" aria-live="polite"></div>
+                        </form>
+                        <div class="portal-card">
+                            <h3>Inventory Records</h3>
+                            <div id="adminInventorySummary" class="portal-message"></div>
+                            <div id="adminInventoryList" class="operations-record-list" aria-live="polite"></div>
+                        </div>
+                    </div>
+                </section>
+                <section class="portal-workspace-panel" data-admin-panel="reports">
+                    <div class="portal-dashboard-head compact">
+                        <div><span class="portal-kicker">Operations Intelligence</span>
+                            <h1>Reports & Audit Timeline</h1>
+                            <p>Operational totals, financial snapshots, overdue jobs, and recent security/audit
+                                activity.</p>
+                        </div>
+                        <button class="btn-outline" type="button"
+                            onclick="loadAdminReportsAndAudit(); return false;">Refresh Reports</button>
+                    </div>
+                    <div id="adminReportsMetrics" class="portal-metric-grid report-metric-grid">
+                        <article class="portal-metric-card"><span>Jobs This Month</span><strong
+                                id="reportJobsThisMonth">â€”</strong></article>
+                        <article class="portal-metric-card"><span>Completed Jobs</span><strong
+                                id="reportCompletedJobs">â€”</strong></article>
+                        <article class="portal-metric-card"><span>Open Complaints</span><strong
+                                id="reportOpenComplaints">â€”</strong></article>
+                        <article class="portal-metric-card"><span>Quotation Value</span><strong
+                                id="reportQuotationValue">â€”</strong></article>
+                        <article class="portal-metric-card"><span>Invoice Value</span><strong
+                                id="reportInvoiceValue">â€”</strong></article>
+                        <article class="portal-metric-card"><span>Low Stock</span><strong id="reportLowStock">â€”</strong>
+                        </article>
+                    </div>
+                    <div class="portal-grid operations-two-column">
+                        <div class="portal-card">
+                            <h3>Overdue / At-Risk Jobs</h3>
+                            <div id="adminRiskJobList" class="operations-record-list" aria-live="polite"></div>
+                        </div>
+                        <div class="portal-card">
+                            <h3>Recent Audit Activity</h3>
+                            <div id="adminAuditList" class="operations-record-list" aria-live="polite"></div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="portal-workspace-panel" data-admin-panel="history">
+                    <div class="portal-dashboard-head compact">
+                        <div><span class="portal-kicker">Customer & Device History</span>
+                            <h1>Service Record Lookup</h1>
+                            <p>History is compiled from saved job cards, including customer details and device metadata.
+                            </p>
+                        </div>
+                        <button class="btn-outline" type="button"
+                            onclick="loadAdminCustomerDeviceHistory(); return false;">Refresh History</button>
+                    </div>
+                    <div class="portal-card">
+                        <label class="form-field history-search" for="customerHistorySearch">
+                            <span>Search customer, company, phone, email, job ID, device, or serial</span>
+                            <input id="customerHistorySearch" type="search" placeholder="Search service history"
+                                oninput="filterAdminCustomerDeviceHistory();">
+                        </label>
+                        <div id="customerHistorySummary" class="portal-message"></div>
+                    </div>
+                    <div class="portal-history-grid">
+                        <div class="portal-card">
+                            <h3>Customer History</h3>
+                            <div id="customerHistoryList" class="history-list" aria-live="polite"></div>
+                        </div>
+                        <div class="portal-card">
+                            <h3>Device History</h3>
+                            <div id="deviceHistoryList" class="history-list" aria-live="polite"></div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="portal-workspace-panel" data-admin-panel="profile">
+                    <div class="portal-dashboard-head compact">
+                        <div><span class="portal-kicker">Admin Profile</span>
+                            <h1>Password & Session Security</h1>
+                            <p>Review the active profile, change the password, or send a reset password email.</p>
+                        </div>
+                    </div>
+                    <div class="portal-profile-grid">
+                        <div class="portal-card profile-summary-card">
+                            <h3>Logged-in Profile</h3>
+                            <div class="profile-summary-list">
+                                <div><span>Name</span><strong id="profileSummaryName">â€”</strong></div>
+                                <div><span>Email</span><strong id="profileSummaryEmail">â€”</strong></div>
+                                <div><span>Role</span><strong id="profileSummaryRole">â€”</strong></div>
+                                <div><span>Status</span><strong id="profileSummaryStatus">â€”</strong></div>
+                            </div>
+                        </div>
+                        <form class="portal-card profile-password-card" onsubmit="changePortalPassword(event)">
+                            <h3>Change Password</h3>
+                            <label class="form-field" for="profileCurrentPassword"><span>Current Password</span><input
+                                    id="profileCurrentPassword" type="password" autocomplete="current-password"
+                                    required></label>
+                            <label class="form-field" for="profileNewPassword"><span>New Password</span><input
+                                    id="profileNewPassword" type="password" autocomplete="new-password" minlength="6"
+                                    required></label>
+                            <label class="form-field" for="profileConfirmPassword"><span>Confirm New
+                                    Password</span><input id="profileConfirmPassword" type="password"
+                                    autocomplete="new-password" minlength="6" required></label>
+                            <div class="auth-actions profile-password-actions">
+                                <button class="btn-primary" type="submit"><span>Update Password</span></button>
+                                <button class="btn-outline" type="button"
+                                    onclick="sendPortalPasswordReset(event); return false;">Email Reset Link</button>
+                            </div>
+                            <div id="profilePasswordMessage" class="portal-message" aria-live="polite"></div>
+                        </form>
+                    </div>
+                </section>
+            </main>
+        </section>
+    </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="static/js/django-firebase-compat.js?v=1"></script>
+    <script src="static/js/portal-nav-guard.js?v=23" defer></script>
+<script src="static/js/portal.js?v=23" defer></script>
+    <script>
+        (function () {
+            var mobileQuery = window.matchMedia('(max-width: 760px)');
+            var sidebar = document.querySelector('.admin-dashboard-page .portal-sidebar');
+            var toggleButton = document.getElementById('adminMobileMenuToggle');
+            var sidebarNav = document.getElementById('adminDashboardSidebarNav');
+
+            if (!sidebar || !toggleButton || !sidebarNav) {
+                window.toggleAdminMobileMenu = function () { };
+                return;
+            }
+
+            function setAdminMobileMenuState(isOpen) {
+                var open = !!isOpen && mobileQuery.matches;
+                sidebar.classList.toggle('admin-mobile-menu-open', open);
+                toggleButton.setAttribute('aria-expanded', open ? 'true' : 'false');
+                toggleButton.setAttribute('aria-label', open ? 'Close admin dashboard menu' : 'Open admin dashboard menu');
+            }
+
+            window.toggleAdminMobileMenu = function () {
+                setAdminMobileMenuState(!sidebar.classList.contains('admin-mobile-menu-open'));
+            };
+
+            sidebarNav.addEventListener('click', function (event) {
+                if (mobileQuery.matches && event.target.closest('[data-admin-nav]')) {
+                    setAdminMobileMenuState(false);
+                }
+            });
+
+            function handleViewportChange() {
+                if (!mobileQuery.matches) {
+                    setAdminMobileMenuState(false);
+                }
+            }
+
+            if (typeof mobileQuery.addEventListener === 'function') {
+                mobileQuery.addEventListener('change', handleViewportChange);
+            } else if (typeof mobileQuery.addListener === 'function') {
+                mobileQuery.addListener(handleViewportChange);
+            }
+
+            window.addEventListener('resize', handleViewportChange);
+        })();
+    </script>
+    
+    <script src="/static/js/pwa-register.js" defer></script>
+
+</body>
+
+</html>
+
+
+

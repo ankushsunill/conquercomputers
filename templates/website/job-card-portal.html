@@ -1,0 +1,492 @@
+﻿<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script>
+        (function () {
+            try {
+                var savedTheme = localStorage.getItem('conquer-theme');
+                if (savedTheme === 'light' || savedTheme === 'dark') {
+                    document.documentElement.setAttribute('data-theme', savedTheme);
+                }
+            } catch (error) {
+                // Keep the default theme when browser storage is unavailable.
+            }
+        })();
+    </script>
+
+    <title>Job Card Portal | Conquer Computers LLC</title>
+    <meta name="description" content="Approved staff and user job card portal for Conquer Computers LLC.">
+    <link rel="canonical" href="https://www.conquercomputers.com/job-card-portal.html">
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="manifest" href="/manifest.webmanifest">
+    <meta name="theme-color" content="#07090c">
+    <link rel="apple-touch-icon" href="/images/pwa/icon-192.png">
+    <link rel="icon" href="images/logo.png" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="static/css/style.css?v=23">
+    <link rel="stylesheet" href="static/css/portal.css?v=24">
+</head>
+
+<body class="portal-app-page job-card-dashboard-page" data-page="job-card-portal" data-portal-view="job">
+    <div id="portalGate" class="portal-access-gate">Checking secure job card accessâ€¦</div>
+    <div id="jobAppShell" class="portal-app-shell" style="display:none;">
+        <aside class="portal-sidebar">
+
+            <div class="portal-brand portal-brand-compact">
+                <img src="images/logo.png" alt="Conquer Computers LLC">
+                <div>
+                    <strong>CONQUER</strong>
+                    <span>COMPUTERS LLC</span>
+                </div>
+            </div>
+            <nav class="portal-sidebar-nav" aria-label="Job card portal sections">
+                <button class="active" data-job-nav="jobcards" type="button"
+                    onclick="switchJobWorkspacePanel('jobcards'); return false;">Job Card Workspace</button>
+                <button data-job-nav="records" type="button"
+                    onclick="switchJobWorkspacePanel('records'); mirrorJobCardList(); return false;">Saved /
+                    Assigned</button>
+                <button data-job-nav="complaints" data-portal-feature="complaint" type="button"
+                    onclick="switchJobWorkspacePanel('complaints'); loadComplaints(); return false;">Complaint
+                    Tickets</button>
+                <button data-job-nav="delivery" data-portal-feature="delivery" type="button"
+                    onclick="switchJobWorkspacePanel('delivery'); loadDeliveryNotes(); return false;">Delivery
+                    Notes</button>
+                <button data-job-nav="profile" type="button"
+                    onclick="switchJobWorkspacePanel('profile'); return false;">Profile & Password</button>
+            </nav>
+            <div class="portal-sidebar-footer">
+                <a class="btn-outline" href="index.html">Website</a>
+                <button class="btn-primary" type="button"
+                    onclick="logoutUser(event); return false;"><span>Logout</span></button>
+            </div>
+        </aside>
+        <section class="portal-app-stage">
+            <header class="portal-app-topbar">
+                <div><span>Job Card Portal</span><strong id="clientName">Portal User</strong></div>
+                <div class="portal-topbar-meta"><span id="dashboardProfileEmail">â€”</span><button type="button"
+                        class="portal-profile-pill" data-job-switch="profile"
+                        onclick="switchJobWorkspacePanel('profile'); return false;">Profile</button><button
+                        class="theme-toggle-btn portal-theme-toggle" type="button"
+                        onclick="toggleTheme(); return false;" title="Toggle light / dark theme"
+                        aria-label="Toggle light / dark theme"><span class="icon-sun">â˜€ï¸</span><span
+                            class="icon-moon">ðŸŒ™</span></button></div>
+            </header>
+            <main class="portal-app-content">
+
+                <section class="portal-workspace-panel active" data-job-panel="jobcards">
+                    <div class="portal-dashboard-head compact">
+                        <div><span class="portal-kicker">Approved Job Card Portal</span>
+                            <h1>Job Cards</h1>
+                            <p>Create and update your job cards, view saved records, and generate the existing PDF
+                                output.</p>
+                        </div>
+                    </div>
+                    <div id="portalBox" class="portal-dashboard" style="display:block;">
+                        <div class="portal-panel active" data-portal-panel="job" id="jobPortal">
+                            <div class="portal-grid">
+                                <form class="portal-card" id="jobCardForm" onsubmit="saveJobCard(event)">
+                                    <h3>Register / Update Job Card</h3>
+                                    <div class="form-grid">
+                                        <label class="form-field" for="jobId">
+                                            <span>Job Card ID</span>
+                                            <input id="jobId" placeholder="Auto generated for new job card" readonly=""
+                                                type="text" />
+                                        </label>
+                                        <label class="form-field" for="orderDate">
+                                            <span>Order Date</span>
+                                            <input id="orderDate" required="" type="date" />
+                                        </label>
+                                        <label class="form-field" for="deliveryNote">
+                                            <span>Delivery Note #</span>
+                                            <input id="deliveryNote" placeholder="Enter delivery note number"
+                                                type="text" />
+                                        </label>
+                                        <label class="form-field" for="estRef">
+                                            <span>EST # / REF #</span>
+                                            <input id="estRef" placeholder="Enter estimate or reference number"
+                                                type="text" />
+                                        </label>
+                                        <label class="form-field" for="customerId">
+                                            <span>Customer ID</span>
+                                            <input id="customerId" placeholder="Enter customer ID" type="text" />
+                                        </label>
+                                        <label class="form-field" for="despatchDate">
+                                            <span>Despatch Date</span>
+                                            <input id="despatchDate" type="date" />
+                                        </label>
+                                        <label class="form-field" for="deliveryMethod">
+                                            <span>Delivery Method</span>
+                                            <input id="deliveryMethod" placeholder="Enter delivery method"
+                                                type="text" />
+                                        </label>
+                                        <label class="form-field" for="clientPhone">
+                                            <span>Phone Number</span>
+                                            <input id="clientPhone" placeholder="Enter phone number" type="text" />
+                                        </label>
+                                        <label class="form-field" for="clientEmail">
+                                            <span>Customer Email</span>
+                                            <input id="clientEmail" placeholder="customer@example.com" type="email" />
+                                        </label>
+                                    </div>
+                                    <div class="form-grid phase-one-workflow-grid">
+                                        <label class="form-field" for="workflowStatus">
+                                            <span>Workflow Status</span>
+                                            <select disabled="" id="workflowStatus">
+                                                <option value="New">New</option>
+                                                <option value="Assigned">Assigned</option>
+                                                <option value="In Progress">In Progress</option>
+                                                <option value="Waiting for Parts">Waiting for Parts</option>
+                                                <option value="Completed">Completed</option>
+                                                <option value="Delivered">Delivered</option>
+                                                <option value="Closed">Closed</option>
+                                            </select>
+                                        </label>
+                                        <label class="form-field" for="jobPriority">
+                                            <span>Priority</span>
+                                            <select disabled="" id="jobPriority">
+                                                <option value="Normal">Normal</option>
+                                                <option value="Low">Low</option>
+                                                <option value="High">High</option>
+                                                <option value="Urgent">Urgent</option>
+                                            </select>
+                                        </label>
+                                        <label class="form-field" for="jobDueDate">
+                                            <span>Expected Completion</span>
+                                            <input disabled="" id="jobDueDate" type="date" />
+                                        </label>
+                                        <label class="form-field" for="assignedStaffName">
+                                            <span>Assigned Staff</span>
+                                            <input id="assignedStaffName" placeholder="Admin will assign staff"
+                                                readonly="" type="text" />
+                                        </label>
+                                        <label class="form-field" for="scheduledVisitDate">
+                                            <span>Scheduled Visit</span>
+                                            <input id="scheduledVisitDate" readonly="" type="date" />
+                                        </label>
+                                        <label class="form-field" for="scheduledVisitTime">
+                                            <span>Visit Time</span>
+                                            <input id="scheduledVisitTime" readonly="" type="time" />
+                                        </label>
+                                    </div>
+                                    <p class="portal-inline-note">Status, priority, due date, and staff assignment are
+                                        maintained from the Admin Dashboard. They are displayed here for staff/user
+                                        visibility.</p>
+
+                                    <label class="form-field" for="clientCompany">
+                                        <span>Company Name</span>
+                                        <input id="clientCompany" placeholder="Enter company name" type="text" />
+                                    </label>
+                                    <label class="form-field" for="clientAddress">
+                                        <span>Invoice / Shipping Address</span>
+                                        <textarea id="clientAddress"
+                                            placeholder="Enter complete invoice or shipping address"
+                                            required=""></textarea>
+                                    </label>
+                                    <label class="form-field" for="jobDescription">
+                                        <span>Job Description / Work Details</span>
+                                        <textarea id="jobDescription"
+                                            placeholder="Enter work details, service notes, items, or complaint details"
+                                            required=""></textarea>
+                                    </label>
+                                    <div class="portal-subheading">Customer Device History</div>
+                                    <div class="form-grid device-history-grid">
+                                        <label class="form-field" for="deviceType">
+                                            <span>Device Type</span>
+                                            <input id="deviceType" placeholder="Laptop, Desktop, Printer, CCTV, Network"
+                                                type="text" />
+                                        </label>
+                                        <label class="form-field" for="deviceBrand">
+                                            <span>Brand</span>
+                                            <input id="deviceBrand" placeholder="Device brand" type="text" />
+                                        </label>
+                                        <label class="form-field" for="deviceModel">
+                                            <span>Model</span>
+                                            <input id="deviceModel" placeholder="Device model" type="text" />
+                                        </label>
+                                        <label class="form-field" for="deviceSerialNumber">
+                                            <span>Serial Number</span>
+                                            <input id="deviceSerialNumber" placeholder="Serial / asset number"
+                                                type="text" />
+                                        </label>
+                                    </div>
+
+                                    <div class="form-grid">
+                                        <label class="form-field" for="technicianName">
+                                            <span>Technician Name</span>
+                                            <input id="technicianName" placeholder="Enter technician name"
+                                                type="text" />
+                                        </label>
+                                        <label class="form-field" for="checkedBy">
+                                            <span>Checked By</span>
+                                            <input id="checkedBy" placeholder="Enter checked by name" type="text" />
+                                        </label>
+                                        <label class="form-field" for="techDate">
+                                            <span>Technician Date</span>
+                                            <input id="techDate" type="date" />
+                                        </label>
+                                        <label class="form-field" for="checkedDate">
+                                            <span>Checked Date</span>
+                                            <input id="checkedDate" type="date" />
+                                        </label>
+                                    </div>
+                                    <button class="btn-primary" type="submit"><span>Save / Update Job
+                                            Card</span></button>
+                                </form>
+                                <div class="portal-card">
+                                    <h3>Saved Job Cards</h3>
+                                    <div class="saved-list" id="jobCardList"></div>
+                                </div>
+                            </div>
+                            <div class="portal-card pdf-area">
+                                <div class="pdf-actions">
+                                    <h3>PDF Preview</h3>
+                                    <div>
+                                        <button class="btn-outline" onclick="downloadJobPDF(event); return false;"
+                                            type="button">Download PDF</button>
+                                        <button class="btn-outline" onclick="printJobPDF(event); return false;"
+                                            type="button">Print</button>
+                                        <button class="btn-primary" onclick="sendJobPDFEmail(event); return false;"
+                                            type="button"><span>Send PDF
+                                                Email</span></button>
+                                    </div>
+                                </div>
+                                <div class="jobcard-paper" id="jobCardPDF">
+                                    <div class="jc-header">
+                                        <div class="jc-logo">
+                                            <img alt="Conquer Computers LLC" src="images/logo.png" />
+                                        </div>
+                                        <div>
+                                            <h2>CONQUER COMPUTERS LLC</h2>
+                                            <h4>P.O.BOX:15425, DUBAI - UAE</h4>
+                                            <p>M-05, Majlish Properties Bldg. Hor Al Anz | Dubai | UAE</p>
+                                            <p>Ph: 04-2200075 | Mob: +971-55 55 38313 | 054-3433 553</p>
+                                            <p>admin@conquercomputers.com</p>
+                                        </div>
+                                    </div>
+                                    <div class="jc-title">Job Card</div>
+                                    <div class="jc-main">
+                                        <div class="jc-address">
+                                            <h4>INVOICE / SHIPPING ADDRESS:</h4>
+                                            <div class="jc-address-row">
+                                                <span>Name :</span>
+                                                <p id="pdfName">[Name]</p>
+                                            </div>
+                                            <div class="jc-address-row">
+                                                <span>Company :</span>
+                                                <p id="pdfCompany">[Company Name]</p>
+                                            </div>
+                                            <div class="jc-address-row">
+                                                <span>Address :</span>
+                                                <p id="pdfAddress">[Invoice / Shipping Address]</p>
+                                            </div>
+                                            <div class="jc-address-row">
+                                                <span>Phone :</span>
+                                                <p id="pdfPhone">[Phone Number]</p>
+                                            </div>
+                                        </div>
+                                        <div class="jc-details">
+                                            <div><span>Job Card ID</span><b id="pdfJobId"></b></div>
+                                            <div><span>Order Date</span><b id="pdfOrderDate"></b></div>
+                                            <div><span>Delivery Note #</span><b id="pdfDeliveryNote"></b></div>
+                                            <div><span>EST # / REF #</span><b id="pdfEstRef"></b></div>
+                                            <div><span>Customer ID</span><b id="pdfCustomerId"></b></div>
+                                            <div><span>Despatch Date</span><b id="pdfDespatchDate"></b></div>
+                                            <div><span>Delivery Method</span><b id="pdfDeliveryMethod"></b></div>
+                                        </div>
+                                    </div>
+                                    <div class="jc-desc">
+                                        <h4>Description</h4>
+                                        <p id="pdfDescription"></p>
+                                    </div>
+                                    <div class="jc-sign">
+                                        <div>
+                                            <span id="pdfTechnician"></span>
+                                            <b>Technician - Name &amp; Signature</b>
+                                            <p>Date: <span id="pdfTechDate"></span></p>
+                                        </div>
+                                        <div>
+                                            <span id="pdfCheckedBy"></span>
+                                            <b>Checked by: Name &amp; Signature</b>
+                                            <p>Date: <span id="pdfCheckedDate"></span></p>
+                                        </div>
+                                    </div>
+                                    <div class="jc-footer">
+                                        <p>Notice must be given to us of any goods not received within 10 days from the
+                                            date of
+                                            despatch stated on invoice.</p>
+                                        <p>Any Shortage must be reported within 24 hours of receipt of goods.</p>
+                                        <p>Complaints can only be accepted in writing within 3 Working days of receipt
+                                            of goods.
+                                        </p>
+                                        <p>No Goods may be returned without prior authorisation from company.</p>
+                                        <h3>Thank you for your business!</h3>
+                                        <p>Should you have any enquiries concerning this delivery note, Please Contact
+                                            054-3433553.</p>
+                                        <u>www.conquercomputers.com</u>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="portal-workspace-panel" data-job-panel="records">
+                    <div class="portal-dashboard-head compact">
+                        <div><span class="portal-kicker">Saved / Assigned</span>
+                            <h1>My Job Card Records</h1>
+                            <p>Active staff accounts also see job cards assigned to them. Assigned records are view-only
+                                in this phase.</p>
+                        </div>
+                        <button class="btn-outline" type="button" onclick="loadJobCards(); return false;">Refresh
+                            Records</button>
+                    </div>
+                    <div class="portal-card">
+                        <div id="jobCardListMirror" class="saved-list mirror-list"></div>
+                        <p class="portal-inline-note">The main Job Card workspace remains the source for opening and
+                            generating PDFs.</p>
+                    </div>
+                </section>
+
+
+                <section class="portal-workspace-panel portal-feature-panel" data-job-panel="complaints"
+                    data-portal-feature-panel="complaint">
+                    <div class="portal-dashboard-head compact">
+                        <div><span class="portal-kicker">Customer Support</span>
+                            <h1>Complaint Tickets</h1>
+                            <p>Register a complaint with optional evidence. Admin can review, update status, or convert
+                                it into a job card.</p>
+                        </div>
+                    </div>
+                    <div class="portal-grid support-client-grid">
+                        <form class="portal-card" id="complaintForm" onsubmit="saveComplaint(event)">
+                            <h3>Submit Complaint</h3>
+                            <label class="form-field" for="complaintSubject"><span>Subject</span><input
+                                    id="complaintSubject" type="text" required placeholder="Brief issue title"></label>
+                            <label class="form-field" for="complaintType"><span>Type</span><select id="complaintType"
+                                    required>
+                                    <option value="IT Support">IT Support</option>
+                                    <option value="CCTV">CCTV</option>
+                                    <option value="Network">Network</option>
+                                    <option value="AMC">AMC</option>
+                                    <option value="Billing">Billing</option>
+                                    <option value="Other">Other</option>
+                                </select></label>
+                            <label class="form-field" for="complaintDetails"><span>Details</span><textarea
+                                    id="complaintDetails" required
+                                    placeholder="Explain the issue, urgency, and affected device"></textarea></label>
+                            <label class="form-field" for="complaintFiles"><span>Attachments</span><input
+                                    id="complaintFiles" type="file" multiple
+                                    accept=".jpg,.jpeg,.png,.webp,.gif,.mp4,.webm,.mov,.pdf"></label>
+                            <button class="btn-primary" type="submit"><span>Register Complaint</span></button>
+                        </form>
+                        <div class="portal-card">
+                            <h3>My Complaint History</h3>
+                            <div id="complaintList" class="saved-list" aria-live="polite"></div>
+                        </div>
+                    </div>
+                </section>
+                <section class="portal-workspace-panel portal-feature-panel" data-job-panel="delivery"
+                    data-portal-feature-panel="delivery">
+                    <div class="portal-dashboard-head compact">
+                        <div><span class="portal-kicker">Delivery Workflow</span>
+                            <h1>Delivery Notes</h1>
+                            <p>Create delivery requests or notes when this portal module is enabled by admin.</p>
+                        </div>
+                    </div>
+                    <div class="portal-grid support-client-grid">
+                        <form class="portal-card" id="deliveryNoteForm" onsubmit="saveDeliveryNote(event)">
+                            <h3>Create / Update Delivery Note</h3>
+                            <div class="form-grid">
+                                <label class="form-field" for="deliveryPortalId"><span>Delivery ID</span><input
+                                        id="deliveryPortalId" type="text" readonly placeholder="Auto generated"></label>
+                                <label class="form-field" for="deliveryPortalDate"><span>Delivery Date</span><input
+                                        id="deliveryPortalDate" type="date" required></label>
+                                <label class="form-field" for="deliveryPortalReference"><span>Reference / Job
+                                        ID</span><input id="deliveryPortalReference" type="text"
+                                        placeholder="Related job card or reference"></label>
+                                <label class="form-field" for="deliveryPortalStatus"><span>Status</span><select
+                                        id="deliveryPortalStatus">
+                                        <option value="Pending">Pending</option>
+                                        <option value="Ready">Ready</option>
+                                        <option value="Out for Delivery">Out for Delivery</option>
+                                        <option value="Delivered">Delivered</option>
+                                    </select></label>
+                                <label class="form-field" for="deliveryPortalRecipient"><span>Recipient</span><input
+                                        id="deliveryPortalRecipient" type="text" required></label>
+                                <label class="form-field" for="deliveryPortalPhone"><span>Phone</span><input
+                                        id="deliveryPortalPhone" type="text"></label>
+                            </div>
+                            <label class="form-field" for="deliveryPortalAddress"><span>Delivery Address</span><textarea
+                                    id="deliveryPortalAddress" required></textarea></label>
+                            <label class="form-field" for="deliveryPortalItems"><span>Items / Details</span><textarea
+                                    id="deliveryPortalItems" required
+                                    placeholder="Products, devices, or delivery notes"></textarea></label>
+                            <button class="btn-primary" type="submit"><span>Save Delivery Note</span></button>
+                        </form>
+                        <div class="portal-card">
+                            <h3>My Delivery Notes</h3>
+                            <div id="deliveryNoteList" class="saved-list" aria-live="polite"></div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="portal-workspace-panel" data-job-panel="profile">
+                    <div class="portal-dashboard-head compact">
+                        <div><span class="portal-kicker">Profile</span>
+                            <h1>Password & Session Security</h1>
+                            <p>Review the active profile, change the password, or send a reset password email.</p>
+                        </div>
+                    </div>
+                    <div class="portal-profile-grid">
+                        <div class="portal-card profile-summary-card">
+                            <h3>Logged-in Profile</h3>
+                            <div class="profile-summary-list">
+                                <div><span>Name</span><strong id="profileSummaryName">â€”</strong></div>
+                                <div><span>Email</span><strong id="profileSummaryEmail">â€”</strong></div>
+                                <div><span>Role</span><strong id="profileSummaryRole">â€”</strong></div>
+                                <div><span>Status</span><strong id="profileSummaryStatus">â€”</strong></div>
+                            </div>
+                        </div>
+                        <form class="portal-card profile-password-card" onsubmit="changePortalPassword(event)">
+                            <h3>Change Password</h3>
+                            <label class="form-field" for="profileCurrentPassword"><span>Current Password</span><input
+                                    id="profileCurrentPassword" type="password" autocomplete="current-password"
+                                    required></label>
+                            <label class="form-field" for="profileNewPassword"><span>New Password</span><input
+                                    id="profileNewPassword" type="password" autocomplete="new-password" minlength="6"
+                                    required></label>
+                            <label class="form-field" for="profileConfirmPassword"><span>Confirm New
+                                    Password</span><input id="profileConfirmPassword" type="password"
+                                    autocomplete="new-password" minlength="6" required></label>
+                            <div class="auth-actions profile-password-actions">
+                                <button class="btn-primary" type="submit"><span>Update Password</span></button>
+                                <button class="btn-outline" type="button"
+                                    onclick="sendPortalPasswordReset(event); return false;">Email Reset Link</button>
+                            </div>
+                            <div id="profilePasswordMessage" class="portal-message" aria-live="polite"></div>
+                        </form>
+                    </div>
+                </section>
+            </main>
+        </section>
+    </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="static/js/django-firebase-compat.js?v=1"></script>
+    <script src="static/js/portal-nav-guard.js?v=23" defer></script>
+<script src="static/js/portal.js?v=23" defer></script>
+    <script src="/static/js/pwa-register.js" defer></script>
+
+</body>
+
+</html>
+
+
+
